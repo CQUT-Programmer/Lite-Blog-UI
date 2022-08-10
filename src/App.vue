@@ -1,12 +1,35 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <div id="app">
+    <router-view v-if="isRouterActive"></router-view>
+  </div>
+
 </template>
 
+<script lang="ts">
+import {nextTick, ref, provide} from "vue";
+
+export default {
+  name: 'App',
+  setup() {
+    let isRouterActive = ref(true)
+
+    const reload = async () => {
+      isRouterActive.value = false
+      await nextTick()
+      isRouterActive.value = true
+      console.log(isRouterActive)
+    }
+    provide("viewReload", reload)
+
+    return {
+      isRouterActive,
+      reload,
+    }
+  }
+}
+</script>
 <style lang="scss">
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
