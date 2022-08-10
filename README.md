@@ -1,4 +1,12 @@
-# lite-blog-ui
+
+
+# Lite-Blog-UI -- 博客前端页面
+
+------
+
+目前项目仍然在开发中......
+
+页面预览：暂无
 
 ## Project setup
 ```
