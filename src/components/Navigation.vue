@@ -11,6 +11,7 @@
 
 <script lang="ts">
 import {ref, reactive, computed} from "vue";
+import {routerKey} from "vue-router";
 
 export default {
   name: "Navigation",
@@ -18,10 +19,16 @@ export default {
     const navigation = ref([
       {index: '1', name: '首页', url: 'homepage'},
       {index: '2', name: '沸点', url: 'hotspot'},
+      {index: '3', name: '课程', url: 'hotspot'},
+      {index: '4', name: '直播', url: 'hotspot'},
+      {index: '5', name: '活动', url: 'hotspot'},
+      {index: '6', name: '插件', url: 'hotspot'},
     ])
 
+    const router : any = routerKey.description.sup()
     const homepageActiveIndex = ref('1')
     const switchFunction = (key: string, keyPath: string) => {
+
       console.log(key, keyPath)
     }
 
