@@ -1,12 +1,8 @@
 <template>
-  <div class="common-layout">
+  <div class="content">
     <el-container>
-      <el-header>
-        <div class="flex-center">
-          <img src="../assets/blogLogo.png" alt="博客暂用logo" id="blogLogo">
-          <h4>Vegetable Programmer</h4>
-          <navigation/>
-        </div>
+      <el-header class="main-header-box">
+        <navigation/>
       </el-header>
       <el-main>Main</el-main>
       <el-aside>Side</el-aside>
@@ -28,15 +24,17 @@ export default {
 
     const reload = inject('viewReload')
 
-    return {
-
-    }
+    return {}
   },
 }
 </script>
 
 <style scoped>
 
+.main-header-box {
+  width: 100%;
+  background-color: white;
+}
 #blogLogo {
   width: 5%;
   height: 5%;
