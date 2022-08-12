@@ -1,34 +1,46 @@
 <template>
   <div class="main-header">
     <div>
-      <h4>Vegetable Programmer</h4>
+      <div class="align-center">
+        <img src="../assets/image/blogLogo.png" alt="博客暂用logo" id="blogLogo">
+      </div>
+      <div class="align-center">
+        <h4 style="margin: 0; width: 70%;">Vegetable Programmer</h4>
+      </div>
     </div>
 
-    <div class="align-center space-around main-nav">
+    <div class="align-center space-between main-nav">
       <el-menu
           :default-active="homepageActiveIndex"
           class="el-menu-demo"
           mode="horizontal"
           :ellipsis="false"
           @select="switchFunction">
-        <el-menu-item v-for="item in navigation" v-text="item.name" :index="item.index"></el-menu-item>
+        <el-menu-item v-for="item in navigation" v-text="item.name" :index="item.index" style="height: 70px"></el-menu-item>
       </el-menu>
-      <div class="space-around align-center">
+      <div class="space-around align-center" style="width: 60%">
         <el-input
             v-model="searchInput"
-            style="width: 20%"
+            style="width: 45%"
             class="w-50 m-2"
-            placeholder="Type something"
+            placeholder="搜索 vegetable Programmer Blob"
             :suffix-icon="Search"/>
         <div>
           <el-button type="primary" id="createCenter"> 创作者中心</el-button>
           <el-button type="primary" id="more">
-            <el-icon class="el-icon--right" style="color: #f6f6f6">
+            <el-icon  style="color: #f6f6f6">
               <CaretTop/>
             </el-icon>
           </el-button>
         </div>
-        <Bell class="icon-with"></Bell>
+        <div>
+<!--          <img src="../assets/numberIcon.png" alt="会员">-->
+          <span> 会员 </span>
+        </div>
+
+        <el-badge :value="200" :max="99" id="infoBadge">
+          <Bell class="icon-with"></Bell>
+        </el-badge>
         <avatar></avatar>
       </div>
 
@@ -72,7 +84,7 @@ export default {
       })
     }
 
-    const searchInput = ref('搜索 vegetable Programmer Blob')
+    const searchInput = ref('')
 
     return {
       navigation,
@@ -92,6 +104,7 @@ export default {
 
 .main-header {
   display: flex;
+  justify-content: space-between;
   background: #fff;
   border-bottom: 1px solid #f1f1f1;
   color: #909090;
@@ -101,13 +114,12 @@ export default {
   right: 0;
   top: 0;
   transition: all .2s;
-  justify-content: space-around;
   margin: auto;
   max-width: 1440px;
   height: 66px;
 }
 
-.main-header * {
+.main-header div {
   display: flex;
 }
 
@@ -117,9 +129,7 @@ export default {
 }
 
 .main-nav {
-  flex: 1 0 auto;
-  width: 40%;
-
+  width: 90%;
 }
 
 .el-menu--horizontal {
@@ -128,41 +138,34 @@ export default {
 }
 
 #blogLogo {
-  width: 4%;
+  width: 45px;
+  height: 45px;
+}
+
+#infoBadge {
+  width: 8%;
+}
+/deep/ .el-badge__content.is-fixed {
+  position: inherit;
+  top: 0;
+  right: 0;
+  transform: translateY(-50%) translateX(-30%);
 }
 
 .icon-with {
-  width: 2%;
+  width: 100%;
 }
-
-.align-center {
-  align-items: center;
-}
-
-.align-center div {
-  display: flex;
-}
-
-.space-between {
-  justify-content: space-between;
-}
-
-.space-around {
-  justify-content: space-around;
-}
-
 #createCenter {
   border-bottom-right-radius: unset;
   border-top-right-radius: unset;
 }
 
 #more {
-  margin-left: .7px;
+  margin: 0;
+  border-left: white .1px solid;
   border-bottom-left-radius: unset;
   border-top-left-radius: unset;
   padding: 4px;
-  box-shadow: #cccccc;
-
 }
 
 </style>

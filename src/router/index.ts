@@ -1,5 +1,5 @@
 import {createRouter, createWebHistory, RouteRecordRaw} from 'vue-router'
-import HomeView from '@/views/HomeView.vue'
+import HomeView from '@/views/homeView/HomeView.vue'
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -9,6 +9,16 @@ const routes: Array<RouteRecordRaw> = [
         name: 'home',
         component: HomeView,
         meta: {title: '主页面'},
+        children: [{
+            path: '/synthetical',
+            name: 'synthetical',
+            component: () => import('@/views/homeView/synthetical/index.vue')
+        }, {
+            path: '/attention',
+            name: 'attention',
+            component: () => import('@/views/homeView/attention/index.vue')
+        }
+        ]
 
     },
     {
@@ -18,7 +28,7 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: '/hotspot',
         name: 'about',
-        component: () => import('../views/Hotspot.vue')
+        component: () => import('../components/BlogEditor.vue')
     }
 ]
 
