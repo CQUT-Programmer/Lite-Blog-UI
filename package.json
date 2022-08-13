@@ -14,11 +14,14 @@
     "install": "^0.13.0",
     "lodash-es": "^4.17.21",
     "marked": "^4.0.18",
+    "md-editor-v3": "^2.2.1",
     "npm": "^8.16.0",
+    "sanitize-html": "^2.7.1",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3"
   },
   "devDependencies": {
+    "@types/sanitize-html": "^2.6.2",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "@vue/cli-plugin-babel": "~5.0.0",

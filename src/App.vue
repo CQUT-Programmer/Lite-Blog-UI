@@ -14,8 +14,6 @@ export default {
   setup() {
     let isRouterActive = ref(true)
     const router = useRouter()
-
-
     const toAssignUrl = (url: string) => {
       router.push({
         path: '/' + url

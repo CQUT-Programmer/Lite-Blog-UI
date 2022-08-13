@@ -23,3 +23,7 @@
 .space-around {
     justify-content: space-around;
 }
+.align-stretch {
+    align-items: stretch;
+}
+

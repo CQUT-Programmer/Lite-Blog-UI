@@ -1,31 +1,49 @@
 <template>
-  <div class="editor">
-    <textarea class="input" :value="blogInput" @input="blogUpdate"></textarea>
-    <div class="output" v-html="blogOutput"></div>
+  <div class="flex space-between align-center" style="width: 100%; background-color: white">
+    <el-input placeholder="请输入标题..." >
+    </el-input>
+    <div class="flex align-center space-around" id="editor-title-button">
+      <div class="align-center flex space-around">保存成功</div>
+      <el-button type="primary" plain> 草稿箱 </el-button>
+      <el-button type="primary"> 发布 </el-button>
+      <el-icon><Switch /></el-icon>
+    </div>
+    <avatar/>
   </div>
+<!--  <div class="editor">-->
+<!--    <textarea class=class="editor""input" :value="blogInput" @input="blogUpdate"></textarea>-->
+<!--    <div class="output" v-html="blogOutput"></div>-->
+<!--  </div>-->
+  <MdEditor
+      toolbarsExclude="['link', 'mermaid', 'katex', 'github']"
+      v-model="blogInput"
+      class="editor">
+  </MdEditor>
+
 </template>
 
 <script>
-import {marked} from 'marked'
-import {debounce} from 'lodash-es'
-import {ref, computed} from "vue";
+
+import {ref} from "vue";
+import Avatar from '@/components/Avatar.vue'
+// script 引入
+import MdEditor from 'md-editor-v3';
+import 'md-editor-v3/lib/style.css';
+
 
 export default {
   name: "BlogEditor",
+  components: {
+    Avatar,
+    MdEditor
+  },
   setup() {
 
     const blogInput = ref("### helloWord")
-    //marked 格式转换
-    const blogOutput = computed(() => marked(blogInput.value))
-
-    const blogUpdate = debounce((e) => {
-      blogInput.value = e.target.value
-    }, 50)
 
     return {
       blogInput,
-      blogOutput,
-      blogUpdate
+      MdEditor
     }
   }
 }
@@ -33,8 +51,9 @@ export default {
 
 <style scoped>
 .editor {
-  height: 100vh;
+  height: 84vh;
   display: flex;
+  padding-top: 3vh;
 }
 
 .input,
@@ -60,6 +79,27 @@ export default {
 code {
   color: #f66;
 }
+
+#editor-title-button {
+  width: 40%;
+}
+
+#editor-title-button *{
+  width: 30%;
+  height: 5vh;
+  cursor: pointer;
+}
+
+
+.el-input {
+  width: 70%;
+  height: 10vh;
+  font-size: larger;
+  font-weight: bolder;
+}
+
+
+
 
 
 </style>

@@ -65,9 +65,8 @@
 </template>
 
 <script lang="ts">
-import {ref, getCurrentInstance, onMounted, inject} from "vue";
+import {ref, inject} from "vue";
 import Avatar from '../components/Avatar.vue'
-import {useRouter} from "vue-router";
 import {Search, CaretBottom, CaretTop, Bell} from "@element-plus/icons";
 
 export default {
@@ -77,7 +76,6 @@ export default {
   },
   setup() {
 
-    const proxy = getCurrentInstance()
     const toAssignUrl:any = inject('toAssignUrl')
     //功能导航
     const navigation = ref([
