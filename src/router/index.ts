@@ -28,6 +28,11 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: '/hotspot',
         name: 'about',
+        component: () => import('../views/hotspot/Hotspot.vue')
+    },
+    {
+        path: '/blogEditor',
+        name: 'blogEditor',
         component: () => import('../components/BlogEditor.vue')
     }
 ]
@@ -36,5 +41,6 @@ const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
     routes
 })
+
 
 export default router

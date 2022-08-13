@@ -7,12 +7,20 @@
 
 <script lang="ts">
 import {nextTick, ref, provide} from "vue";
+import {useRouter} from "vue-router";
 
 export default {
   name: 'App',
   setup() {
     let isRouterActive = ref(true)
+    const router = useRouter()
 
+
+    const toAssignUrl = (url: string) => {
+      router.push({
+        path: '/' + url
+      })
+    }
     const reload = async () => {
       isRouterActive.value = false
       await nextTick()
@@ -20,10 +28,11 @@ export default {
       console.log(isRouterActive)
     }
     provide("viewReload", reload)
-
+    provide('toAssignUrl', toAssignUrl)
     return {
       isRouterActive,
       reload,
+      toAssignUrl
     }
   }
 }

@@ -16,7 +16,8 @@
           mode="horizontal"
           :ellipsis="false"
           @select="switchFunction">
-        <el-menu-item v-for="item in navigation" v-text="item.name" :index="item.index" style="height: 70px"></el-menu-item>
+        <el-menu-item v-for="item in navigation" v-text="item.name" :index="item.index"
+                      style="height: 70px"></el-menu-item>
       </el-menu>
       <div class="space-around align-center" style="width: 60%">
         <el-input
@@ -27,14 +28,26 @@
             :suffix-icon="Search"/>
         <div>
           <el-button type="primary" id="createCenter"> 创作者中心</el-button>
-          <el-button type="primary" id="more">
-            <el-icon  style="color: #f6f6f6">
-              <CaretTop/>
+          <el-button type="primary" id="more" @click="buttonMoreIsClicked = !buttonMoreIsClicked">
+            <el-icon style="color: #f6f6f6">
+              <CaretBottom v-if="!buttonMoreIsClicked"></CaretBottom>
+              <CaretTop v-else></CaretTop>
             </el-icon>
           </el-button>
+          <ul class="more-list" v-show="buttonMoreIsClicked">
+            <li class="item" @click="toAssignUrl('blogEditor')">
+              <span>写文章</span>
+            </li>
+            <li class="item" @click="toAssignUrl('blogEditor')">
+              <span>发沸点</span>
+            </li>
+            <li class="item" @click="toAssignUrl('blogEditor')">
+              <span>写代码</span>
+            </li>
+          </ul>
         </div>
         <div>
-<!--          <img src="../assets/numberIcon.png" alt="会员">-->
+          <img src="../assets/image/numberIcon.png" alt="会员" id="memberIcon">
           <span> 会员 </span>
         </div>
 
@@ -52,11 +65,10 @@
 </template>
 
 <script lang="ts">
-import {ref} from "vue";
+import {ref, getCurrentInstance, onMounted, inject} from "vue";
 import Avatar from '../components/Avatar.vue'
 import {useRouter} from "vue-router";
-import {Search, ArrowDown, CaretTop, Bell} from "@element-plus/icons";
-
+import {Search, CaretBottom, CaretTop, Bell} from "@element-plus/icons";
 
 export default {
   name: "Navigation",
@@ -65,7 +77,8 @@ export default {
   },
   setup() {
 
-    const router = useRouter()
+    const proxy = getCurrentInstance()
+    const toAssignUrl:any = inject('toAssignUrl')
     //功能导航
     const navigation = ref([
       {index: '1', name: '首页', url: 'homepage'},
@@ -79,22 +92,24 @@ export default {
     const homepageActiveIndex = ref('1')
     //路由跳转
     const switchFunction = (key: number) => {
-      router.push({
-        path: '/' + navigation.value[key].url
-      })
-    }
+      toAssignUrl(navigation.value[key].url)
+      }
+
 
     const searchInput = ref('')
+    const buttonMoreIsClicked = ref(false)
 
     return {
+      CaretBottom,
+      CaretTop,
+      Bell,
+      Search,
       navigation,
       homepageActiveIndex,
       switchFunction,
-      Search,
       searchInput,
-      ArrowDown,
-      CaretTop,
-      Bell
+      buttonMoreIsClicked,
+      toAssignUrl
     }
   },
 }
@@ -143,18 +158,25 @@ export default {
 }
 
 #infoBadge {
-  width: 8%;
+  width: 6%;
 }
+
+#memberIcon {
+  width: 22px;
+  height: 22px;
+  padding-right: 5px;
+}
+
 /deep/ .el-badge__content.is-fixed {
-  position: inherit;
   top: 0;
   right: 0;
-  transform: translateY(-50%) translateX(-30%);
+  transform: translateY(-50%);
 }
 
 .icon-with {
-  width: 100%;
+  width: 60%;
 }
+
 #createCenter {
   border-bottom-right-radius: unset;
   border-top-right-radius: unset;
@@ -166,6 +188,32 @@ export default {
   border-bottom-left-radius: unset;
   border-top-left-radius: unset;
   padding: 4px;
+}
+
+.more-list {
+  position: absolute;
+  top: 70%;
+  padding: .417rem 0;
+  background-color: #fff;
+  display: block;
+  z-index: 1;
+  border-radius: 6px;
+  width: 8rem;
+}
+
+.item {
+  margin: 0 8px;
+  padding: 2px;
+  border-radius: 4px;
+  line-height: 24px;
+  font-weight: 400;
+  font-size: inherit;
+  color: #252933;
+  cursor: pointer;
+}
+
+.item:hover {
+  background-color: #ebedf2;
 }
 
 </style>
