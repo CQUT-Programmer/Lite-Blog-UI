@@ -17,7 +17,7 @@
           :ellipsis="false"
           @select="switchFunction">
         <el-menu-item v-for="item in navigation" v-text="item.name" :index="item.index"
-                      style="height: 70px"></el-menu-item>
+                     style="height: 66px;" ></el-menu-item>
       </el-menu>
       <div class="space-around align-center" style="width: 60%">
         <el-input
@@ -127,7 +127,7 @@ export default {
   right: 0;
   top: 0;
   transition: all .2s;
-  margin: auto;
+  margin: 0 auto;
   max-width: 1440px;
   height: 66px;
 }
@@ -143,10 +143,11 @@ export default {
 
 .main-nav {
   width: 90%;
+  height: 66px;
 }
 
 .el-menu--horizontal {
-  border-bottom: none;
+  border-bottom:none;
 
 }
 

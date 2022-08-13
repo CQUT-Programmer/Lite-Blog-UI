@@ -4,23 +4,23 @@
       <el-header class="main-header-box">
         <navigation/>
       </el-header>
+
       <el-main class="container">
         <div class="home-view-select">
           <div class="select-list">
-            <a v-for="item in homeViewSelect" v-html="item.name"></a>
+            <router-link :to="{path: '/homeView/' + item.url}" v-for="item in homeViewSelect" v-html="item.name" append></router-link>
           </div>
           <div>
           </div>
         </div>
         <div class="content">
-          <div class="synthetical">
-            <router-link to="synthetical"></router-link>
-            <synthetical/>
+          <div>
+            <router-view/>
           </div>
         </div>
 
       </el-main>
-<!--      <el-footer>Footer</el-footer>-->
+      <!--      <el-footer>Footer</el-footer>-->
     </el-container>
   </div>
 </template>
@@ -39,10 +39,10 @@ export default {
   setup() {
 
     const reload = inject('viewReload')
-
+    const toAssignUrl:any = inject('toAssignUrl')
     const homeViewSelect = reactive([
-      {name: '综合', url: ''},
-      {name: '关注', url: ''},
+      {name: '综合', url: 'synthetical'},
+      {name: '关注', url: 'attention'},
       {name: '后端', url: ''},
       {name: '前端', url: ''},
       {name: 'Android', url: ''},
@@ -52,6 +52,7 @@ export default {
       {name: '代码人生', url: ''},
       {name: '阅读', url: ''}
     ])
+
     return {
       reload,
       homeViewSelect
@@ -65,6 +66,7 @@ export default {
 .main-header-box {
   width: 100%;
   background-color: white;
+  height: 66px;
 }
 
 .container {
@@ -77,7 +79,7 @@ export default {
 
 .home-view-select {
   position: fixed;
-  top: 4rem;
+  top: 4.2rem;
   width: 100%;
   height: 3.133rem;
   z-index: 100;
@@ -98,6 +100,7 @@ export default {
   line-height: 1;
   color: #71777c;
 }
+
 .select-list a {
   margin-right: 30px;
   cursor: pointer;
@@ -107,8 +110,9 @@ export default {
   color: cornflowerblue;
 }
 
-.synthetical {
-  margin-top: 4.5rem;
+.content {
+  width: 75%;
 }
+
 
 </style>

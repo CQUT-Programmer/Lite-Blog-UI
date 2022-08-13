@@ -6,24 +6,25 @@ const routes: Array<RouteRecordRaw> = [
 
     {
         path: '/',
-        name: 'home',
+        redirect: {name: 'home'},
+
+    },
+    {
+        path: '/homeView',
         component: HomeView,
+        name: 'home',
         meta: {title: '主页面'},
         children: [{
-            path: '/synthetical',
+            path: 'synthetical',
             name: 'synthetical',
             component: () => import('@/views/homeView/synthetical/index.vue')
         }, {
-            path: '/attention',
+            path: 'attention',
             name: 'attention',
             component: () => import('@/views/homeView/attention/index.vue')
         }
         ]
 
-    },
-    {
-        path: '/homeView',
-        redirect: {name: 'home'},
     },
     {
         path: '/hotspot',

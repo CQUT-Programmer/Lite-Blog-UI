@@ -16,10 +16,13 @@
   <MdEditor
       toolbarsExclude="['link', 'mermaid', 'katex', 'github']"
       v-model="blog.blogText"
-      v-if="mdEdit"
-      class="editor">
+      v-show="mdEdit"
+      class="editor"
+      key="mdEditor">
   </MdEditor>
-  <Editor v-else class="editor"
+  <Editor v-if="!mdEdit"
+          class="editor"
+          key="editor"
           v-model="blog.blogText">
   </Editor>
 

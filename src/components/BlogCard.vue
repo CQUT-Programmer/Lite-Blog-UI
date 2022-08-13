@@ -1,4 +1,7 @@
 <template>
+  <div class="blogCard flex align-center space-around">
+    <slot></slot>
+  </div>
 
 </template>
 
@@ -8,6 +11,16 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+
+.blogCard {
+  background-color: white;
+  height: 10vh;
+  cursor: pointer;
+}
+
+.blogCard:hover {
+  background-color: rgba(250, 250, 250, .4);
+}
 
 </style>
