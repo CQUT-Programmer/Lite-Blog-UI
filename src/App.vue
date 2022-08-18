@@ -8,7 +8,6 @@
 <script lang="ts">
 import {nextTick, ref, provide} from "vue";
 import {useRouter} from "vue-router";
-
 export default {
   name: 'App',
   setup() {

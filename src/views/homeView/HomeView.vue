@@ -1,34 +1,25 @@
 <template>
   <div>
-    <el-container>
-      <el-header class="main-header-box">
-        <navigation/>
-      </el-header>
-
-      <el-main class="container">
-        <div class="home-view-select">
-          <div class="select-list">
-            <router-link :to="{path: '/homeView/' + item.url}" v-for="item in homeViewSelect" v-html="item.name" append></router-link>
-          </div>
-          <div>
-          </div>
-        </div>
-        <div class="content">
-          <div>
-            <router-view/>
-          </div>
-        </div>
-
-      </el-main>
-      <!--      <el-footer>Footer</el-footer>-->
-    </el-container>
+    <div class="home-view-select">
+      <div class="select-list">
+        <router-link :to="{path: '/homeView/' + item.url}" v-for="item in homeViewSelect" v-html="item.name" append
+                     active-class="active-color"></router-link>
+      </div>
+      <div>
+      </div>
+    </div>
+    <div class="content">
+      <div>
+        <router-view/>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import navigation from '../../components/Navigation.vue'
 import synthetical from './synthetical/index.vue'
-import {ref, reactive, inject} from "vue";
+import {ref, reactive, inject, onMounted} from "vue";
 
 export default {
   name: "HomeView",
@@ -39,18 +30,18 @@ export default {
   setup() {
 
     const reload = inject('viewReload')
-    const toAssignUrl:any = inject('toAssignUrl')
+    const toAssignUrl: any = inject('toAssignUrl')
     const homeViewSelect = reactive([
       {name: '综合', url: 'synthetical'},
       {name: '关注', url: 'attention'},
-      {name: '后端', url: ''},
-      {name: '前端', url: ''},
-      {name: 'Android', url: ''},
-      {name: 'iOS', url: ''},
-      {name: '人工智能', url: ''},
-      {name: '开发工具', url: ''},
-      {name: '代码人生', url: ''},
-      {name: '阅读', url: ''}
+      {name: '后端', url: '/#'},
+      {name: '前端', url: '/#'},
+      {name: 'Android', url: '/#'},
+      {name: 'iOS', url: '/#'},
+      {name: '人工智能', url: '/#'},
+      {name: '开发工具', url: '/#'},
+      {name: '代码人生', url: '/#'},
+      {name: '阅读', url: '/#'}
     ])
 
     return {
@@ -62,19 +53,6 @@ export default {
 </script>
 
 <style scoped>
-
-.main-header-box {
-  width: 100%;
-  background-color: white;
-  height: 66px;
-}
-
-.container {
-  position: relative;
-  margin: 0 auto;
-  width: 100%;
-  max-width: 960px;
-}
 
 
 .home-view-select {

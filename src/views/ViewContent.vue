@@ -1,0 +1,47 @@
+<template>
+  <el-container>
+    <el-header class="main-header-box">
+      <navigation/>
+    </el-header>
+
+    <el-main class="container">
+    <!--TODO:子路由配置优化-->
+      <router-view/>
+    </el-main>
+
+    <el-footer>Footer</el-footer>
+  </el-container>
+</template>
+
+<script lang="ts">
+import navigation from "@/components/Navigation.vue"
+
+export default {
+  name: "ViewContent",
+  components: {
+    navigation
+  },
+  setup() {
+
+    return {
+
+    }
+  }
+}
+</script>
+
+<style scoped>
+
+.main-header-box {
+  width: 100%;
+  background-color: white;
+  height: 66px;
+}
+
+.container {
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 960px;
+}
+</style>

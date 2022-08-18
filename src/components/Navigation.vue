@@ -10,15 +10,12 @@
     </div>
 
     <div class="align-center space-between main-nav">
-      <el-menu
-          :default-active="homepageActiveIndex"
-          class="el-menu-demo"
-          mode="horizontal"
-          :ellipsis="false"
-          @select="switchFunction">
-        <el-menu-item v-for="item in navigation" v-text="item.name" :index="item.index"
-                     style="height: 66px;" ></el-menu-item>
-      </el-menu>
+      <div class="flex space-between " style="width: 30%">
+        <router-link v-for="item in navigation" :to="{path: '/' + item.url}" v-html="item.name" append
+                     active-class="active-color" ></router-link>
+      </div>
+
+
       <div class="space-around align-center" style="width: 60%">
         <el-input
             v-model="searchInput"
@@ -76,10 +73,10 @@ export default {
   },
   setup() {
 
-    const toAssignUrl:any = inject('toAssignUrl')
+    const toAssignUrl: any = inject('toAssignUrl')
     //功能导航
     const navigation = ref([
-      {index: '1', name: '首页', url: 'homepage'},
+      {index: '1', name: '首页', url: ''},
       {index: '2', name: '沸点', url: 'hotspot'},
       {index: '3', name: '课程', url: 'hotspot'},
       {index: '4', name: '直播', url: 'hotspot'},
@@ -91,7 +88,7 @@ export default {
     //路由跳转
     const switchFunction = (key: number) => {
       toAssignUrl(navigation.value[key].url)
-      }
+    }
 
 
     const searchInput = ref('')
@@ -147,7 +144,7 @@ export default {
 }
 
 .el-menu--horizontal {
-  border-bottom:none;
+  border-bottom: none;
 
 }
 
