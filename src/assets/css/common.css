@@ -51,3 +51,9 @@ a:hover {
     color: cornflowerblue;
 }
 
+.flex-center-h100 {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+

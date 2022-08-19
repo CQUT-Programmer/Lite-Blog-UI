@@ -10,9 +10,8 @@
     </div>
 
     <div class="align-center space-between main-nav">
-      <div class="flex space-between " style="width: 30%">
-        <router-link v-for="item in navigation" :to="{path: '/' + item.url}" v-html="item.name" append
-                     active-class="active-color" ></router-link>
+      <div class="flex space-between " style="width: 30%; height: 100%;">
+        <my-router-link :view-select="navigation"/>
       </div>
 
 
@@ -57,31 +56,31 @@
     </div>
 
   </div>
-
-
 </template>
 
 <script lang="ts">
 import {ref, inject} from "vue";
 import Avatar from '../components/Avatar.vue'
 import {Search, CaretBottom, CaretTop, Bell} from "@element-plus/icons";
+import myRouterLink from '@/components/MyRouterLink.vue'
 
 export default {
   name: "Navigation",
   components: {
-    Avatar
+    Avatar,
+    myRouterLink
   },
   setup() {
 
     const toAssignUrl: any = inject('toAssignUrl')
     //功能导航
     const navigation = ref([
-      {index: '1', name: '首页', url: ''},
-      {index: '2', name: '沸点', url: 'hotspot'},
-      {index: '3', name: '课程', url: 'hotspot'},
-      {index: '4', name: '直播', url: 'hotspot'},
-      {index: '5', name: '活动', url: 'hotspot'},
-      {index: '6', name: '插件', url: 'hotspot'},
+      {index: '1', name: '首页', url: 'liteblog/'},
+      {index: '2', name: '沸点', url: 'liteblog/hotspot'},
+      {index: '3', name: '课程', url: 'liteblog/hotspot'},
+      {index: '4', name: '直播', url: 'liteblog/hotspot'},
+      {index: '5', name: '活动', url: 'liteblog/hotspot'},
+      {index: '6', name: '插件', url: 'liteblog/hotspot'},
     ])
 
     const homepageActiveIndex = ref('1')
@@ -134,7 +133,6 @@ export default {
 }
 
 .main-header.visible {
-  /*transform: translateZ(0);*/
   transform: translate3d(0, -100%, 0);
 }
 
@@ -143,10 +141,10 @@ export default {
   height: 66px;
 }
 
-.el-menu--horizontal {
-  border-bottom: none;
+/*/deep/ .main-nav a:hover {*/
+/*  border-bottom: 2px cornflowerblue solid !important;*/
+/*}*/
 
-}
 
 #blogLogo {
   width: 45px;

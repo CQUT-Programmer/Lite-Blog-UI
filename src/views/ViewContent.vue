@@ -42,6 +42,8 @@ export default {
   position: relative;
   margin: 0 auto;
   width: 100%;
-  max-width: 960px;
+  max-width: 1200px;
+  text-align: center;
+  text-align: -webkit-center
 }
 </style>

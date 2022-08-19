@@ -1,9 +1,8 @@
 <template>
-  <div>
+  <div style="max-width: 960px" >
     <div class="home-view-select">
       <div class="select-list">
-        <router-link :to="{path: '/homeView/' + item.url}" v-for="item in homeViewSelect" v-html="item.name" append
-                     active-class="active-color"></router-link>
+       <my-router-link :view-select="homeViewSelect"/>
       </div>
       <div>
       </div>
@@ -19,34 +18,37 @@
 <script lang="ts">
 import navigation from '../../components/Navigation.vue'
 import synthetical from './synthetical/index.vue'
-import {ref, reactive, inject, onMounted} from "vue";
+import myRouterLink from '@/components/MyRouterLink.vue'
+import {ref, reactive, inject} from "vue";
 
 export default {
   name: "HomeView",
   components: {
     navigation,
     synthetical,
+    myRouterLink
   },
   setup() {
 
     const reload = inject('viewReload')
     const toAssignUrl: any = inject('toAssignUrl')
     const homeViewSelect = reactive([
-      {name: '综合', url: 'synthetical'},
-      {name: '关注', url: 'attention'},
-      {name: '后端', url: '/#'},
-      {name: '前端', url: '/#'},
-      {name: 'Android', url: '/#'},
-      {name: 'iOS', url: '/#'},
-      {name: '人工智能', url: '/#'},
-      {name: '开发工具', url: '/#'},
-      {name: '代码人生', url: '/#'},
-      {name: '阅读', url: '/#'}
+      {name: '综合', url: 'liteblog/'},
+      {name: '关注', url: 'liteblog/attention'},
+      {name: '后端', url: '#'},
+      {name: '前端', url: '#'},
+      {name: 'Android', url: '#'},
+      {name: 'iOS', url: '#'},
+      {name: '人工智能', url: '#'},
+      {name: '开发工具', url: '#'},
+      {name: '代码人生', url: '#'},
+      {name: '阅读', url: '#'}
     ])
+
 
     return {
       reload,
-      homeViewSelect
+      homeViewSelect,
     }
   },
 }

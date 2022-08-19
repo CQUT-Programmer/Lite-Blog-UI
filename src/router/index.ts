@@ -6,12 +6,13 @@ const routes: Array<RouteRecordRaw> = [
 
     {
         path: '/',
-        component: viewContent
+        redirect: {name: 'home'}
     },
+
     {
         path: '/liteblog',
-        component: viewContent,
         name: 'home',
+        component: viewContent,
         meta: {title: '博客页面总内容'},
         children: [
             {
@@ -21,8 +22,12 @@ const routes: Array<RouteRecordRaw> = [
                 component: () => import('@/views/homeView/HomeView.vue'),
                 children: [
                     {
-                        path: 'synthetical',
+                        path: '',
                         name: 'synthetical',
+                        component: () => import('@/views/homeView/synthetical/index.vue')
+                    },
+                    {
+                        path: 'synthetical',
                         component: () => import('@/views/homeView/synthetical/index.vue')
                     },
                     {
@@ -33,12 +38,11 @@ const routes: Array<RouteRecordRaw> = [
                 ]
             },
             {
-                path: '/hotspot',
+                path: 'hotspot',
                 name: 'about',
                 component: () => import('../views/hotspot/Hotspot.vue')
             },
         ]
-
     },
 
     {
@@ -51,7 +55,16 @@ const routes: Array<RouteRecordRaw> = [
 
 const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
-    routes
+    routes,
+    // linkActiveClass: 'active-color'
+})
+
+
+router.beforeEach((_from, _to, next) => {
+    next()
+})
+router.afterEach((_to, _from) => {
+    console.log('---------')
 })
 
 

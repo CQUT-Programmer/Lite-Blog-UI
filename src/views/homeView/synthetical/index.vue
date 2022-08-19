@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import BlogCard from "@/components/BlogCard"
+import BlogCard from "@/components/homeview/BlogCard"
 
 export default {
   name: "index",
