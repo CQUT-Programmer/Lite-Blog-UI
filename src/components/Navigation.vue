@@ -21,7 +21,11 @@
             style="width: 45%"
             class="w-50 m-2"
             placeholder="搜索 vegetable Programmer Blob"
-            :suffix-icon="Search"/>
+         >
+          <template #append>
+            <el-button :icon="Search" />
+          </template>
+        </el-input>
         <div>
           <el-button type="primary" id="createCenter"> 创作者中心</el-button>
           <el-button type="primary" id="more" @click="buttonMoreIsClicked = !buttonMoreIsClicked">

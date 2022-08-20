@@ -40,7 +40,23 @@ const routes: Array<RouteRecordRaw> = [
             {
                 path: 'hotspot',
                 name: 'about',
-                component: () => import('../views/hotspot/Hotspot.vue')
+                component: () => import('../views/hotspot/Hotspot.vue'),
+                children: [
+                    {
+                        path: 'new',
+                        name: 'new',
+                        component: () => import('@/views/hotspot/new/index.vue')
+                    },
+                    {
+                        path: '',
+                        redirect: {name: 'new'}
+                    },
+                    {
+                        path: 'hot',
+                        name: 'hot',
+                        component: () => import('@/views/hotspot/hot/index.vue')
+                    }
+                ]
             },
         ]
     },
