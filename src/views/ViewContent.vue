@@ -5,7 +5,7 @@
     </el-header>
 
     <el-main class="container">
-    <!--TODO:子路由配置优化-->
+      <!--TODO:子路由配置优化-->
       <router-view/>
     </el-main>
 
@@ -23,9 +23,7 @@ export default {
   },
   setup() {
 
-    return {
-
-    }
+    return {}
   }
 }
 </script>
@@ -36,14 +34,17 @@ export default {
   width: 100%;
   background-color: white;
   height: 66px;
+  position: fixed;
+  z-index: 100;
+  border-bottom: 1px #dcdfe6 solid;
 }
 
 .container {
   position: relative;
-  margin: 0 auto;
   width: 100%;
   max-width: 1200px;
   text-align: center;
-  text-align: -webkit-center
+  text-align: -webkit-center;
+  margin: 4rem auto 0 auto;
 }
 </style>

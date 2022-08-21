@@ -1,5 +1,6 @@
 import {createRouter, createWebHistory, RouteRecordRaw} from 'vue-router'
 import viewContent from '@/views/ViewContent.vue'
+import Nprogress from '../tools/myNProgress.js'
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -13,6 +14,7 @@ const routes: Array<RouteRecordRaw> = [
         path: '/liteblog',
         name: 'home',
         component: viewContent,
+        redirect: '/liteblog/',
         meta: {title: '博客页面总内容'},
         children: [
             {
@@ -77,10 +79,12 @@ const router = createRouter({
 
 
 router.beforeEach((_from, _to, next) => {
+    Nprogress.start()
     next()
 })
 router.afterEach((_to, _from) => {
-    console.log('---------')
+    console.log()
+    Nprogress.done()
 })
 
 

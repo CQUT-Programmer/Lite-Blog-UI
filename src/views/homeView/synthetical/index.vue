@@ -9,13 +9,13 @@
     </ul>
 
     <div class="blog-card-box background-white">
-      <div v-for="item in 4">
+      <div v-for="item in 10">
         <blog-card>
       <span>
         {{ item }} blogCard
       </span>
         </blog-card>
-        <div class="divider flex space-around" v-if="item < 4">
+        <div class="divider flex space-around" v-if="item < 100">
           <el-divider/>
         </div>
       </div>
@@ -47,7 +47,6 @@ export default {
 .synthetical {
   margin-top: 2.5rem;
   padding: 10px 5px;
-
 }
 
 /deep/ .el-breadcrumb__inner.is-link {

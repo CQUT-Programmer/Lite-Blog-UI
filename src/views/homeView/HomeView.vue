@@ -62,7 +62,7 @@ export default {
   top: 4.2rem;
   width: 100%;
   height: 3.133rem;
-  z-index: 100;
+  z-index: 10;
   transition: all .2s;
   transform: translateZ(0);
   left: 0;

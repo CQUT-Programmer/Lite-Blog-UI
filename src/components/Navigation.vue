@@ -119,9 +119,7 @@ export default {
   display: flex;
   justify-content: space-between;
   background: #fff;
-  border-bottom: 1px solid #f1f1f1;
   color: #909090;
-  z-index: 250;
   position: fixed;
   left: 0;
   right: 0;
@@ -129,7 +127,11 @@ export default {
   transition: all .2s;
   margin: 0 auto;
   max-width: 1440px;
-  height: 66px;
+  height: 65px;
+  border-bottom: 1px #dcdfe6 solid;
+}
+.main-header * {
+  z-index: 1000;
 }
 
 .main-header div {
@@ -144,10 +146,6 @@ export default {
   width: 90%;
   height: 66px;
 }
-
-/*/deep/ .main-nav a:hover {*/
-/*  border-bottom: 2px cornflowerblue solid !important;*/
-/*}*/
 
 
 #blogLogo {

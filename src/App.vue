@@ -6,8 +6,9 @@
 </template>
 
 <script lang="ts">
-import {nextTick, ref, provide} from "vue";
+import {nextTick, ref, provide, onMounted,} from "vue";
 import {useRouter} from "vue-router";
+import {Howl, Howler} from 'howler'
 export default {
   name: 'App',
   setup() {
@@ -25,6 +26,17 @@ export default {
       console.log(isRouterActive)
     }
     provide("viewReload", reload)
+    const sound = new Howl({
+      src: require('@/assets/mp3/sound.mp3')
+    })
+    onMounted(() => {
+      sound.stop()
+      nextTick(() => {
+        sound.play()
+      })
+      Howler.volume(1)
+    })
+
     provide('toAssignUrl', toAssignUrl)
     return {
       isRouterActive,
@@ -42,7 +54,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  background-color: rgb(244,245,245);
 }
 
 nav {

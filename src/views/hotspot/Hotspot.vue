@@ -204,8 +204,17 @@ export default {
     const toAssignUrl: any = inject('toAssignUrl')
     const dynamicValue = ref()
     const activeIndex = ref('1')
-    const handleSelect = (key:string, keyPath:string) => {
+    const navigation = ref([
+      {index: '1', name: '最新', url: 'liteblog/hotspot/new'},
+      {index: '2', name: '热门', url: 'liteblog/hotspot/hot'},
+      {index: '3', name: '关注', url: 'liteblog/hotspot/new'},
+      {index: '4', name: '我的圈子', url: 'liteblog/hotspot/new'},
+      {index: '5', name: '推荐圈子', url: 'liteblog/hotspot/new'},
+      {index: '6', name: '插件', url: 'liteblog/hotspot/new'},
+    ])
+    const handleSelect = (key:string) => {
       activeIndex.value = key
+      toAssignUrl(navigation.value[Number.parseInt(key) - 1].url)
     }
     return {
       dynamicValue,
