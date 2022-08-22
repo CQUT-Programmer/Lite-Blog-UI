@@ -23,6 +23,7 @@ export const CONTENT_TYPE = ContentType.JSON
 export const TOKEN_KEY = ''
 export const TOKEN_STORAGE = StorageType.COOKIE
 export const TIME_OUT = 20000
+
 // 双向绑定方法名
 export const UPDATE_MODEL_EVENT = 'update:modelValue'
 export const BaseURL = "http://localhost:8090/"
