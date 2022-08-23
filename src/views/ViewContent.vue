@@ -9,7 +9,8 @@
       <router-view/>
     </el-main>
 
-    <el-footer>Footer</el-footer>
+    <el-footer>
+    </el-footer>
   </el-container>
 </template>
 
@@ -22,8 +23,8 @@ export default {
     navigation
   },
   setup() {
-
-    return {}
+    return {
+    }
   }
 }
 </script>

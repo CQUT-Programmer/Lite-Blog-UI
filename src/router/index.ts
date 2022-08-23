@@ -67,7 +67,7 @@ const routes: Array<RouteRecordRaw> = [
         path: '/blogEditor',
         name: 'blogEditor',
         meta: {title: '博客编辑页面'},
-        component: () => import('../components/BlogEditor.vue')
+        component: () => import('@/views/editor/index.vue')
     }
 ]
 

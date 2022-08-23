@@ -12,7 +12,8 @@ process.env.VUE_APP_UPDATE_TIME = time
 module.exports = defineConfig({
   lintOnSave: false,
   devServer: {
-    port: process.env.VUE_APP_PORT || 7090
+    port: process.env.VUE_APP_PORT || 7090,
+
   },
   configureWebpack() {
     return {

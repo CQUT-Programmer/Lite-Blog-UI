@@ -20,8 +20,8 @@ const SuccessCode = {
 //请求数据类型
 export const CONTENT_TYPE = ContentType.JSON
 // 访问秘钥 存储
-export const TOKEN_KEY = ''
-export const TOKEN_STORAGE = StorageType.COOKIE
+export const TOKEN_KEY = 'lite-blog'
+export const TOKEN_STORAGE = StorageType.LOCAL
 export const TIME_OUT = 20000
 
 // 双向绑定方法名

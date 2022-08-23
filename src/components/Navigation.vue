@@ -64,7 +64,7 @@
 
 <script lang="ts">
 import {ref, inject} from "vue";
-import Avatar from '../components/Avatar.vue'
+import Avatar from './avatar/Avatar.vue'
 import {Search, CaretBottom, CaretTop, Bell} from "@element-plus/icons";
 import myRouterLink from '@/components/MyRouterLink.vue'
 

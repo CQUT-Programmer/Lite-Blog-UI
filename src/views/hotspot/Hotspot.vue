@@ -189,7 +189,7 @@
 
 <script lang="ts">
 import dynamicCard from '@/components/hotspot/DynamicCard.vue'
-import avatar from '@/components/Avatar.vue'
+import avatar from '@/components/avatar/Avatar.vue'
 import {ref, inject} from "vue";
 import {Search} from "@element-plus/icons";
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex space-between align-center" style="width: 100%; background-color: white">
+  <div class="flex space-between align-center editor-view">
     <el-input placeholder="请输入标题..." v-model="blog.blogTitle">
     </el-input>
     <div class="flex align-center space-around" id="editor-title-button">
@@ -9,17 +9,16 @@
       <el-icon @click="mdEdit = !mdEdit">
         <Switch/>
       </el-icon>
+      <avatar/>
     </div>
-    <avatar/>
+
   </div>
 
-  <MdEditor
-      toolbarsExclude="['link', 'mermaid', 'katex', 'github']"
-      v-model="blog.blogText"
+  <my-mark-editor
       v-show="mdEdit"
       class="editor"
       key="mdEditor">
-  </MdEditor>
+  </my-mark-editor>
   <Editor v-if="!mdEdit"
           class="editor"
           key="editor"
@@ -32,10 +31,8 @@
 <script>
 
 import {reactive, ref} from "vue";
-import Avatar from '@/components/Avatar.vue'
-// script 引入
-import MdEditor from 'md-editor-v3';
-import 'md-editor-v3/lib/style.css';
+import Avatar from '@/components/avatar/Avatar.vue'
+import MyMarkEditor from "@/components/editor/MyMarkEditor";
 //引入tinymce编辑器
 import Editor from '@tinymce/tinymce-vue';
 
@@ -44,7 +41,7 @@ export default {
   name: "BlogEditor",
   components: {
     Avatar,
-    MdEditor,
+    MyMarkEditor,
     Editor
   },
   setup() {
@@ -58,16 +55,29 @@ export default {
 
     return {
       blog,
-      MdEditor,
       mdEdit
     }
   }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.editor-view {
+
+  width: 100%;
+  background-color: #fff;
+  #editor-title-button {
+    width: 30%;
+
+    & * {
+      cursor: pointer;
+    }
+  }
+}
+
+
 .editor {
-  height: 84vh;
+  height: 90vh;
   display: flex;
   padding-top: 3vh;
 }
@@ -76,20 +86,9 @@ code {
   color: #f66;
 }
 
-#editor-title-button {
-  width: 40%;
-}
-
-#editor-title-button * {
-  width: 30%;
-  height: 5vh;
-  cursor: pointer;
-}
-
 
 .el-input {
-  width: 70%;
-  height: 10vh;
+  height: 6vh;
   font-size: larger;
   font-weight: bolder;
 }

@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import avatar from '@/components/Avatar.vue'
+import avatar from '@/components/avatar/Avatar.vue'
 export default {
   name: "DynamicCard",
   components: {
