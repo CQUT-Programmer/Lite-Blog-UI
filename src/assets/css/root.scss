@@ -1,0 +1,45 @@
+@mixin font-size($size: 14, $format: 'px') {
+  font-size: #{$size} + #{$format}
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+.flex-end {
+  justify-content: flex-end;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.space-around {
+  justify-content: space-around;
+}
+.align-stretch {
+  align-items: stretch;
+}
+
+.background-white {
+  background-color: #fff;
+}
+
+.active-color {
+  color: cornflowerblue;
+}
+
+.flex-center-h100 {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+

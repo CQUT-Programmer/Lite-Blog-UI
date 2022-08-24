@@ -21,8 +21,7 @@
   </my-mark-editor>
   <Editor v-if="!mdEdit"
           class="editor"
-          key="editor"
-          v-model="blog.blogText">
+          key="editor">
   </Editor>
 
 
@@ -77,7 +76,7 @@ export default {
 
 
 .editor {
-  height: 90vh;
+  height: 94vh;
   display: flex;
   padding-top: 3vh;
 }

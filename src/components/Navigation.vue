@@ -1,11 +1,11 @@
 <template>
   <div class="main-header">
-    <div>
+    <div >
       <div class="align-center">
         <img src="../assets/image/blogLogo.png" alt="博客暂用logo" id="blogLogo">
       </div>
-      <div class="align-center">
-        <h4 style="margin: 0; width: 70%;">Vegetable Programmer</h4>
+      <div class="align-center blog-title">
+        <h4>Vegetable Programmer</h4>
       </div>
     </div>
 
@@ -21,30 +21,29 @@
             style="width: 45%"
             class="w-50 m-2"
             placeholder="搜索 vegetable Programmer Blob"
-         >
+        >
           <template #append>
-            <el-button :icon="Search" />
+            <el-button :icon="Search"/>
           </template>
         </el-input>
         <div>
-          <el-button type="primary" id="createCenter"> 创作者中心</el-button>
-          <el-button type="primary" id="more" @click="buttonMoreIsClicked = !buttonMoreIsClicked">
-            <el-icon style="color: #f6f6f6">
-              <CaretBottom v-if="!buttonMoreIsClicked"></CaretBottom>
-              <CaretTop v-else></CaretTop>
-            </el-icon>
-          </el-button>
-          <ul class="more-list" v-show="buttonMoreIsClicked">
-            <li class="item" @click="toAssignUrl('blogEditor')">
-              <span>写文章</span>
-            </li>
-            <li class="item" @click="toAssignUrl('blogEditor')">
-              <span>发沸点</span>
-            </li>
-            <li class="item" @click="toAssignUrl('blogEditor')">
-              <span>写代码</span>
-            </li>
-          </ul>
+          <el-dropdown size="default"
+                       trigger="click"
+                       split-button
+                       type="primary"
+                       @click="toAssignUrl('blogEditor')"
+          >
+            创作者中心
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item icon="edit" @click="toAssignUrl('blogEditor')"><span>写文章</span></el-dropdown-item>
+                <el-dropdown-item icon="share" @click="toAssignUrl('blogEditor')"><span>发沸点</span></el-dropdown-item>
+                <el-dropdown-item icon="discount" @click="toAssignUrl('blogEditor')"><span>写代码</span></el-dropdown-item>
+                <el-dropdown-item icon="folderChecked" @click="toAssignUrl('blogEditor')"><span>草稿箱</span>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
         </div>
         <div>
           <img src="../assets/image/numberIcon.png" alt="会员" id="memberIcon">
@@ -54,7 +53,75 @@
         <el-badge :value="200" :max="99" id="infoBadge">
           <Bell class="icon-with"></Bell>
         </el-badge>
-        <avatar></avatar>
+        <el-dropdown trigger="click" @click:.stop="navigation">
+          <avatar></avatar>
+          <template #dropdown>
+            <el-dropdown-menu class="background-common nav-person-info">
+
+              <div class="flex">
+                <avatar></avatar>
+                <div class="flex-column">
+                  <span class="info-padding">用户<span class="font-large">{{ 3333333 }}</span></span>
+                  <span class="font-small info-padding">矿石: {{ 400 }} ></span>
+                </div>
+              </div>
+              <ul class="flex space-around">
+                <li>
+                  {{ 0 }}
+                  <span>关注</span>
+                </li>
+                <li>
+                  {{ 0 }}
+                  <span>赞过</span>
+                </li>
+                <li>
+                 {{ 0 }}
+                  <span>收藏</span>
+                </li>
+              </ul>
+              <el-divider/>
+              <div class="flex" id="info-content">
+                <div>
+                  <el-icon>
+                    <User/>
+                  </el-icon>
+                  <span>我的主页</span>
+                </div>
+                <div>
+                  <el-icon><Present /></el-icon>
+                  <span>成长福利</span>
+                </div>
+                <div>
+                  <el-icon><Collection /></el-icon>
+                  <span>会员中心</span>
+                </div>
+                <div>
+                  <el-icon><Reading /></el-icon>
+                  <span>我的课程</span>
+                </div>
+                <div>
+                  <el-icon><DataLine /></el-icon>
+                  <span>我的优惠</span>
+                </div>
+                <div>
+                  <el-icon><WindPower /></el-icon>
+                  <span>我的报名</span>
+                </div>
+                <div>
+                  <el-icon><Place /></el-icon>
+                  <span>我的足迹</span>
+                </div>
+
+              </div>
+              <el-divider/>
+              <div class="flex space-between font-small lowlight">
+                <span>我的设置</span>
+                <span>退出登录</span>
+              </div>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+
       </div>
 
     </div>
@@ -95,7 +162,6 @@ export default {
 
 
     const searchInput = ref('')
-    const buttonMoreIsClicked = ref(false)
 
     return {
       CaretBottom,
@@ -106,7 +172,6 @@ export default {
       homepageActiveIndex,
       switchFunction,
       searchInput,
-      buttonMoreIsClicked,
       toAssignUrl
     }
   },
@@ -130,6 +195,7 @@ export default {
   height: 65px;
   border-bottom: 1px #dcdfe6 solid;
 }
+
 .main-header * {
   z-index: 1000;
 }
@@ -146,7 +212,6 @@ export default {
   width: 90%;
   height: 66px;
 }
-
 
 #blogLogo {
   width: 45px;
@@ -169,47 +234,78 @@ export default {
   transform: translateY(-50%);
 }
 
+/deep/ .el-divider--horizontal {
+  margin: 12px 0 !important;
+}
+
+
 .icon-with {
   width: 60%;
 }
-
-#createCenter {
-  border-bottom-right-radius: unset;
-  border-top-right-radius: unset;
-}
-
-#more {
-  margin: 0;
-  border-left: white .1px solid;
-  border-bottom-left-radius: unset;
-  border-top-left-radius: unset;
-  padding: 4px;
-}
-
-.more-list {
-  position: absolute;
-  top: 70%;
-  padding: .417rem 0;
-  background-color: #fff;
-  display: block;
-  z-index: 1;
-  border-radius: 6px;
-  width: 8rem;
-}
-
-.item {
-  margin: 0 8px;
-  padding: 2px;
-  border-radius: 4px;
-  line-height: 24px;
-  font-weight: 400;
-  font-size: inherit;
-  color: #252933;
-  cursor: pointer;
-}
-
-.item:hover {
-  background-color: #ebedf2;
-}
-
 </style>
+
+<style lang="scss">
+@import "../assets/css/root.scss";
+.blog-title {
+  justify-content: center;
+
+  h4 {
+    @extend .flex;
+    @extend .align-center;
+    width: 80%;
+  }
+}
+.nav-person-info {
+  @include font-size(16);
+  color: #252933;
+  width: 250px;
+  el-icon {
+    @include font-size(20);
+  }
+  .lowlight {
+    color: #8a919f;
+  }
+  .font-large {
+    @include font-size(18);
+  }
+  .font-small {
+    @include font-size();
+  }
+  ul {
+    padding-top: 10px;
+    li {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      span {
+        @extend .lowlight;
+        @extend .font-small
+      }
+    }
+  }
+  .info-padding {
+    padding-left: 5px;
+    padding-bottom: 5px;
+  }
+  #info-content {
+    @extend .flex;
+    @extend .space-between;
+    @extend .align-center;
+    flex-wrap: wrap;
+    >div {
+      padding: 10px;
+      &:hover {
+        background-color: #f7f8fa;
+        border-radius: 4px;
+      }
+    }
+    span {
+      padding: 5px;
+    }
+  }
+}
+</style>
+
+
+
+

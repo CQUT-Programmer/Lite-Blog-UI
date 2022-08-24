@@ -1,6 +1,6 @@
 import {createRouter, createWebHistory, RouteRecordRaw} from 'vue-router'
 import viewContent from '@/views/ViewContent.vue'
-import Nprogress from '../tools/myNProgress.js'
+import Nprogress from '../tools/myNprogress.js'
 Nprogress.configure({ showSpinner: false })
 
 const routes: Array<RouteRecordRaw> = [

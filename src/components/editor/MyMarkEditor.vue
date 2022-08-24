@@ -15,7 +15,7 @@
 import MdEditor from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
 
-import {setToken, getToken, clearToken} from "@/tools/storage";
+import {setToken, getToken} from "@/tools/storage";
 import {defineComponent, PropType, reactive, watch, toRefs} from "vue";
 import {ContentType} from '@/tools/constants'
 
@@ -52,10 +52,11 @@ export default defineComponent({
               // eslint-disable-next-line no-undef
               const form = new FormData();
               form.append('file', file)
+
               axios.put('http://localhost:8088/api/cos/upload/public', form, {
                 headers: {
                   'Content-Type': ContentType.UPLOAD,
-                  '5624d023ce7c5ce2081b64a1157c85dc773d3c9d': 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI5YWE2Yzk3NjI0ZjM0OGEwOGM1ODcwOGMxNmY0YWQyZiIsInN1YiI6IntcImF2YXRhclwiOlwiMjYzMzU2NTU4MFwiLFwiZ2VuZGVyXCI6XCLnlLdcIixcImlkXCI6MTAsXCJsb2dpblRpbWVcIjpcIjIwMjItMDgtMjMgMTk6MDM6MTVcIixcIm1haWxcIjpcIjI2MzM1NjU1ODBAcXEuY29tXCIsXCJuaWNrTmFtZVwiOlwid3loXCIsXCJyb2xlSWRcIjowLFwidXVpZFwiOlwiMTFmM2ViZGY3ZGJiNDZkZjhmYzUxMjFiNzI3NDFjZmRcIn0iLCJpc3MiOiJmNDBkMjQ0YWZlYjFmZDdlMjQ1NWU5N2QwZGJhODYyNDU1NTkxYmRkIiwiaWF0IjoxNjYxMjUyNTk2LCJleHAiOjE2NjEyNTk3OTZ9.-_QcPsopomBdXmS89vNyaOi93iMQ1-nx6IrwoLf13Fk',
+                  '5624d023ce7c5ce2081b64a1157c85dc773d3c9d': 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJhZjRlNDViOWRkN2Q0MTUyODg4NzBhZjNiNzgzNWNkNCIsInN1YiI6IntcImdlbmRlclwiOlwi55S3XCIsXCJpZFwiOjExLFwibG9naW5UaW1lXCI6XCIyMDIyLTA4LTI0IDE5OjQ3OjM1XCIsXCJtYWlsXCI6XCIxMjNAcXEuY29tXCIsXCJuaWNrTmFtZVwiOlwiYWxiYVpoYW5nXCIsXCJyb2xlSWRcIjowLFwidXVpZFwiOlwiMTIwM2Q5ZDEwODNlNDM0ZWI1MjRiY2I2Y2I1NmQxZjdcIn0iLCJpc3MiOiJmNDBkMjQ0YWZlYjFmZDdlMjQ1NWU5N2QwZGJhODYyNDU1NTkxYmRkIiwiaWF0IjoxNjYxMzQxNjU1LCJleHAiOjE2NjEzNDg4NTV9.KxiuBJVRdYB4MpWm60GlGON5kWvOXWZ6SJgAw9P6QT8'
                 }
               })
                   .then((res) => rev(res))

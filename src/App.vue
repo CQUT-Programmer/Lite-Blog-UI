@@ -29,13 +29,13 @@ export default {
     const sound = new Howl({
       src: require('@/assets/mp3/sound.mp3')
     })
-    onMounted(() => {
+ /*    onMounted(() => {
       sound.stop()
       nextTick(() => {
         sound.play()
       })
       Howler.volume(1)
-    })
+    })*/
 
     provide('toAssignUrl', toAssignUrl)
     return {

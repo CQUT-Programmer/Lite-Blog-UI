@@ -2,55 +2,55 @@ import cookie from "js-cookie";
 import {TOKEN_KEY, TOKEN_STORAGE, StorageType} from './constants'
 
 
-export function getToken() {
+export function getToken(token_key = TOKEN_KEY, token_storage = TOKEN_STORAGE) {
     let token
-    switch (TOKEN_STORAGE) {
+    switch (token_storage) {
         case StorageType.COOKIE :
-            token = cookie.get(TOKEN_KEY)
+            token = cookie.get(token_key)
             break
         case StorageType.LOCAL :
-            token = localStorage.getItem(TOKEN_KEY)
+            token = localStorage.getItem(token_key)
             break
         case StorageType.SESSION :
-            token = sessionStorage.getItem(TOKEN_KEY)
+            token = sessionStorage.getItem(token_key)
             break
         default :
-            token = cookie.get(TOKEN_KEY)
+            token = cookie.get(token_key)
     }
 
     return token
 }
 
-export function setToken(token: any) {
+export function setToken(token: any, token_key = TOKEN_KEY, token_storage = TOKEN_STORAGE ) {
 
-    switch (TOKEN_STORAGE) {
+    switch (token_storage) {
         case StorageType.COOKIE :
-            cookie.set(TOKEN_KEY, token)
+            cookie.set(token_key, token)
             break
         case StorageType.LOCAL :
-            localStorage.setItem(TOKEN_KEY, token)
+            localStorage.setItem(token_key, token)
             break
         case StorageType.SESSION :
-            sessionStorage.setItem(TOKEN_KEY, token)
+            sessionStorage.setItem(token_key, token)
             break
         default :
-            cookie.get(TOKEN_KEY)
+            cookie.set(token_key, token)
     }
 }
 
-export function clearToken() {
+export function clearToken(token_key = TOKEN_KEY, token_storage = TOKEN_STORAGE) {
 
-    switch (TOKEN_STORAGE) {
+    switch (token_storage) {
         case StorageType.COOKIE :
-            cookie.remove(TOKEN_KEY)
+            cookie.remove(token_key)
             break
         case StorageType.LOCAL :
-            localStorage.removeItem(TOKEN_KEY)
+            localStorage.removeItem(token_key)
             break
         case StorageType.SESSION :
-            sessionStorage.removeItem(TOKEN_KEY)
+            sessionStorage.removeItem(token_key)
             break
         default :
-            cookie.remove(TOKEN_KEY)
+            cookie.remove(token_key)
     }
 }
