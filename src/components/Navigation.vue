@@ -1,6 +1,6 @@
 <template>
   <div class="main-header">
-    <div >
+    <div>
       <div class="align-center">
         <img src="../assets/image/blogLogo.png" alt="博客暂用logo" id="blogLogo">
       </div>
@@ -53,8 +53,9 @@
         <el-badge :value="200" :max="99" id="infoBadge">
           <Bell class="icon-with"></Bell>
         </el-badge>
-        <el-dropdown trigger="click" @click:.stop="navigation">
-          <avatar></avatar>
+
+        <el-dropdown trigger="click">
+          <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
           <template #dropdown>
             <el-dropdown-menu class="background-common nav-person-info">
 

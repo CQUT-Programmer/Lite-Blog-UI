@@ -2,6 +2,8 @@ import {createRouter, createWebHistory, RouteRecordRaw} from 'vue-router'
 import viewContent from '@/views/ViewContent.vue'
 import Nprogress from '../tools/myNprogress.js'
 Nprogress.configure({ showSpinner: false })
+import routerImport from "@/tools/routerImport";
+import userRouter from './user/index'
 
 const routes: Array<RouteRecordRaw> = [
 
@@ -30,7 +32,7 @@ const routes: Array<RouteRecordRaw> = [
                     },
                     {
                         path: 'synthetical',
-                        component: () => import('@/views/homeView/synthetical/index.vue')
+                        component: () => import('@/views/homeView/synthetical/index.vue'),
                     },
                     {
                         path: 'attention',
@@ -60,6 +62,12 @@ const routes: Array<RouteRecordRaw> = [
                     }
                 ]
             },
+            {
+                path: 'user',
+                name: 'user',
+                component: () => import('@/views/user/User.vue'),
+                children: userRouter
+            }
         ]
     },
 

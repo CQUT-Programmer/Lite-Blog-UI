@@ -144,6 +144,7 @@
       <div>
         <router-view/>
       </div>
+
     </el-main>
     <el-aside style="width: 25%" class="flex-column" id="hotspot-right">
       <div class="background-common user-info">
@@ -241,6 +242,10 @@ export default {
 #write-dynamic {
   border-radius: 5px;
   padding: 0 20px;
+}
+
+#write-dynamic div:nth-child(1) {
+  margin-bottom: 20px;
 }
 
 /deep/ #write-dynamic .el-textarea__inner {

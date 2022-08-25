@@ -16,6 +16,9 @@
 
 <script lang="ts">
 import navigation from "@/components/Navigation.vue"
+import {onMounted} from "vue";
+import {setStorage} from "@/tools/storage";
+import {StorageType} from "@/tools/constants";
 
 export default {
   name: "ViewContent",
@@ -23,6 +26,10 @@ export default {
     navigation
   },
   setup() {
+
+    onMounted(() => {
+      setStorage("2243771889",'user_id', StorageType.SESSION)
+    })
     return {
     }
   }

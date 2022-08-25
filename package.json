@@ -24,7 +24,7 @@
     "nprogress": "^0.2.0",
     "sanitize-html": "^2.7.1",
     "vue": "^3.2.13",
-    "vue-router": "^4.0.3"
+    "vue-router": "^4.0.0-0"
   },
   "devDependencies": {
     "@types/howler": "^2.2.7",

@@ -15,7 +15,7 @@
 import MdEditor from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
 
-import {setToken, getToken} from "@/tools/storage";
+import {setStorage, getStorage} from "@/tools/storage";
 import {defineComponent, PropType, reactive, watch, toRefs} from "vue";
 import {ContentType} from '@/tools/constants'
 
@@ -37,11 +37,12 @@ export default defineComponent({
   setup(props) {
 
     const prop = reactive(props)
+    const blog_storage_key = 'blog_text'
     const text = reactive({
-      mdValue: getToken() || ""
+      mdValue: getStorage(blog_storage_key) || ""
     })
-    const onSave = (x: any) => {
-      setToken(x)
+    const onSave = (text: any) => {
+      setStorage(text, blog_storage_key)
     }
 
     // eslint-disable-next-line no-undef
@@ -68,7 +69,7 @@ export default defineComponent({
     }
     watch(() => text.mdValue, () => {
 
-      setToken(text.mdValue)
+      setStorage(text.mdValue, 'blog_text')
     })
     return {
       onSave,

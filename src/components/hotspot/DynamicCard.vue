@@ -37,7 +37,7 @@ export default {
 
 .dynamic-card {
   background-color: #fff;
-  margin: 10px 0;
+  margin: 0 0 20px 0;
   padding-bottom: 0;
 }
 .dynamic-card img {
