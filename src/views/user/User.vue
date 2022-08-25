@@ -1,5 +1,4 @@
 <template>
-
   <div id="user_content">
     <div class="content_left">
       <div class="content_left_head">
@@ -70,7 +69,7 @@
 </template>
 
 <script lang="ts">
-import {inject, reactive} from "vue";
+import {inject, onMounted, reactive} from "vue";
 import {StorageType} from '@/tools/constants'
 import {getStorage} from "@/tools/storage";
 export default {
@@ -108,6 +107,10 @@ export default {
           url: 'liteblog/user/' + userId + "/tags",
         },
       ]
+    })
+
+    onMounted(() => {
+      navSelect('1')
     })
 
     const navSelect = (key: string) => {
