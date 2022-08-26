@@ -11,7 +11,9 @@ const userRouter: RouteRecordRaw =
         path: 'user' + "/" + ":userId",
         name: 'user',
         component: () => import('@/views/user/User.vue'),
-        children: routers,
+        children: [
+            ...routers
+        ]
     }
 
 export default userRouter

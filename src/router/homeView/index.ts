@@ -12,7 +12,9 @@ const userRouter: RouteRecordRaw = {
     name: 'homeView',
     meta: {title: '主页面'},
     component: () => import('@/views/homeView/HomeView.vue'),
-    children: routers
+    children: [
+        ...routers
+    ]
 }
 
 

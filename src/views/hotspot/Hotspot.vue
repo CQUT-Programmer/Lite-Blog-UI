@@ -92,7 +92,7 @@
                     <el-divider/>
                     <div class="flex">
                       <el-menu
-                          :default-active="1"
+                          :default-active="'1'"
                           class="el-menu-demo"
                       >
                         <el-menu-item index="1">推荐圈子</el-menu-item>

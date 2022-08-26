@@ -11,7 +11,9 @@ const userRouter: RouteRecordRaw = {
     name: 'hotspot',
     meta: {title: '沸点'},
     component: () => import('@/views/hotspot/Hotspot.vue'),
-    children: routers,
+    children: [
+        ...routers
+    ]
 }
 
 

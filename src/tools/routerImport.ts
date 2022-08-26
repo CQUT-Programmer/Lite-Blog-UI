@@ -1,4 +1,5 @@
 import {RouteRecordRaw} from 'vue-router'
+import {useDialog} from "element-plus";
 
 
 interface RequireContext {
@@ -71,7 +72,12 @@ export default function routerImport(requireContext: RequireContext, defaultPath
         const currRouter: RouteRecordRaw = {
             path: path,
             name: parentBagName + "_" + path,
-            component: modular.default,
+            component: () => new Promise((rev, rej) => {
+                rev(modular.default)
+                rej("组件加载失败")
+            }).catch(reason => {
+                console.log(reason)
+            }),
         }
 
         //当是默认路由设置path为''
@@ -80,7 +86,12 @@ export default function routerImport(requireContext: RequireContext, defaultPath
             const defaultRouter: RouteRecordRaw = {
                 path: '',
                 name: parentBagName + "_" + path + "_default",
-                component: modular.default,
+                component: () => new Promise((rev, rej) => {
+                    rev(modular.default)
+                    rej("组件加载失败")
+                }).catch(reason => {
+                    console.log(reason)
+                }),
             }
             routers.push(defaultRouter)
 
