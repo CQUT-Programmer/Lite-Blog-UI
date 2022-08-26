@@ -25,7 +25,7 @@
 
       <div>
         <el-menu
-            :default-active="navChange.activeIndex"
+            :default-active="navChange.activeIndex + ''"
             class="el-menu-demo"
             mode="horizontal"
             @select="navSelect"
@@ -114,6 +114,7 @@ export default {
     })
 
     const navSelect = (key: string) => {
+      console.log(key)
       toAssignUrl(navChange.nav[Number.parseInt(key) - 1].url)
     }
     return {

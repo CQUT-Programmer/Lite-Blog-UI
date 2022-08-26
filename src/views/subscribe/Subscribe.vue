@@ -1,10 +1,10 @@
 <template>
-<h1>hotspot</h1>
+
 </template>
 
 <script>
 export default {
-  name: "index"
+  name: "Subscribe"
 }
 </script>
 

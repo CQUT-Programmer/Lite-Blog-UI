@@ -3,6 +3,7 @@
     <div class="home-view-select">
       <div class="select-list">
        <my-router-link :view-select="homeViewSelect"/>
+        <a href="" @click="toAssignUrl('')"></a>
       </div>
       <div>
       </div>
@@ -45,10 +46,10 @@ export default {
       {name: '阅读', url: '#'}
     ])
 
-
     return {
       reload,
       homeViewSelect,
+      toAssignUrl
     }
   },
 }

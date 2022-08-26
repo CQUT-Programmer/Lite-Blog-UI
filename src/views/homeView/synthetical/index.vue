@@ -15,7 +15,7 @@
         {{ item }} blogCard
       </span>
         </blog-card>
-        <div class="divider flex space-around" v-if="item < 100">
+        <div class="divider flex space-around" v-if="item < 10">
           <el-divider/>
         </div>
       </div>

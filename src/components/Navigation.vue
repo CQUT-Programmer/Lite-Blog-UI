@@ -157,8 +157,8 @@ export default {
 
     const homepageActiveIndex = ref('1')
     //路由跳转
-    const switchFunction = (key: number) => {
-      toAssignUrl(navigation.value[key].url)
+    const switchFunction = (key: string) => {
+      toAssignUrl(navigation.value[Number.parseInt(key) - 1].url)
     }
 
 

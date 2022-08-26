@@ -191,7 +191,7 @@
 <script lang="ts">
 import dynamicCard from '@/components/hotspot/DynamicCard.vue'
 import avatar from '@/components/avatar/Avatar.vue'
-import {ref, inject} from "vue";
+import {ref, inject, onMounted} from "vue";
 import {Search} from "@element-plus/icons";
 
 export default {
@@ -205,6 +205,9 @@ export default {
     const toAssignUrl: any = inject('toAssignUrl')
     const dynamicValue = ref()
     const activeIndex = ref('1')
+    onMounted(() => {
+      toAssignUrl('liteblog/hotspot/')
+    })
     const navigation = ref([
       {index: '1', name: '最新', url: 'liteblog/hotspot/new'},
       {index: '2', name: '热门', url: 'liteblog/hotspot/hot'},

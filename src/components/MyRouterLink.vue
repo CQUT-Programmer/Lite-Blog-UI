@@ -34,9 +34,6 @@ export default {
 
     const selectIndex = ref(0)
     const selectRef = toRef(props, 'viewSelect')
-    onMounted(() => {
-
-    })
     return {
       selectIndex,
       selectRef
