@@ -2,7 +2,7 @@
   <div class="main-header">
     <div>
       <div class="align-center">
-        <img src="../assets/image/blogLogo.png" alt="博客暂用logo" id="blogLogo">
+        <img src="../../assets/image/blogLogo.png" alt="博客暂用logo" id="blogLogo" style="border-radius: 100%">
       </div>
       <div class="align-center blog-title">
         <h4>Vegetable Programmer</h4>
@@ -11,7 +11,7 @@
 
     <div class="align-center space-between main-nav">
       <div class="flex space-between " style="width: 30%; height: 100%;">
-        <my-router-link :view-select="navigation"/>
+        <my-router-link :view-select="navigation" :width="'100%'" :border_bottom="true"/>
       </div>
 
 
@@ -46,7 +46,7 @@
           </el-dropdown>
         </div>
         <div>
-          <img src="../assets/image/numberIcon.png" alt="会员" id="memberIcon">
+          <img src="../../assets/image/numberIcon.png" alt="会员" id="memberIcon">
           <span> 会员 </span>
         </div>
 
@@ -132,9 +132,9 @@
 
 <script lang="ts">
 import {ref, inject} from "vue";
-import Avatar from './avatar/Avatar.vue'
+import Avatar from '../avatar/Avatar.vue'
 import {Search, CaretBottom, CaretTop, Bell} from "@element-plus/icons";
-import myRouterLink from '@/components/MyRouterLink.vue'
+import myRouterLink from '@/components/tools/MyRouterLink.vue'
 
 export default {
   name: "Navigation",
@@ -246,7 +246,7 @@ export default {
 </style>
 
 <style lang="scss">
-@import "../assets/css/root.scss";
+@import "../../assets/css/root";
 .blog-title {
   justify-content: center;
 

@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import navigation from "@/components/Navigation.vue"
+import navigation from "@/components/views/Navigation.vue"
 import {onMounted} from "vue";
 import {setStorage} from "@/tools/storage";
 import {StorageType} from "@/tools/constants";

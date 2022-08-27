@@ -2,8 +2,8 @@
   <div style="max-width: 960px" >
     <div class="home-view-select">
       <div class="select-list">
-       <my-router-link :view-select="homeViewSelect"/>
-        <a href="" @click="toAssignUrl('')"></a>
+       <my-router-link :view-select="homeViewSelect" :width="'60%'" :border_bottom="false"/>
+        <a @click="toAssignUrl('liteblog/subscribe/')" v-html="'标签管理'"></a>
       </div>
       <div>
       </div>
@@ -17,9 +17,9 @@
 </template>
 
 <script lang="ts">
-import navigation from '../../components/Navigation.vue'
+import navigation from '../../components/views/Navigation.vue'
 import synthetical from './synthetical/index.vue'
-import myRouterLink from '@/components/MyRouterLink.vue'
+import myRouterLink from '@/components/tools/MyRouterLink.vue'
 import {ref, reactive, inject} from "vue";
 
 export default {
@@ -60,7 +60,7 @@ export default {
 
 .home-view-select {
   position: fixed;
-  top: 4.2rem;
+  top: 4.1rem;
   width: 100%;
   height: 3.133rem;
   z-index: 10;
@@ -77,6 +77,7 @@ export default {
   margin: auto;
   display: flex;
   height: 100%;
+  justify-content: space-between;
   align-items: center;
   line-height: 1;
   color: #71777c;

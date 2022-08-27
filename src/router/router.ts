@@ -4,6 +4,7 @@ import Nprogress from '../tools/myNprogress.js'
 Nprogress.configure({showSpinner: false})
 
 
+//导入规范路由
 const requireRouter = require.context("@/router", true, /index\.ts$/)
 const routers: Array<RouteRecordRaw> = []
 requireRouter.keys().forEach(filePath => {
@@ -22,11 +23,11 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: '/liteblog',
         name: 'home',
-        component: viewContent,
         redirect: 'liteblog',
+        component: viewContent,
         meta: {title: '博客页面总内容'},
         children: [
-            ...routers
+            ...routers,
         ]
     },
 

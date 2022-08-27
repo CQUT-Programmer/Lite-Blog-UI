@@ -1,11 +1,13 @@
 <template>
   <div class="synthetical">
     <ul class="background-white flex align-center" id="synthetical-select">
-      <li><a>推荐</a></li>
-      <el-divider direction="vertical" />
-      <li><a>最新</a></li>
-      <el-divider direction="vertical" />
-      <li><a>热榜</a></li>
+
+      <li v-for="(item, index) in navSelect.label">
+        <a v-html="item.title" :class="{'active-color' : index === navSelect.activeIndex}"
+           @click="navSelect.activeIndex = index">
+        </a>
+        <el-divider direction="vertical" v-if="index < navSelect.label.length"/>
+      </li>
     </ul>
 
     <div class="blog-card-box background-white">
@@ -19,21 +21,38 @@
           <el-divider/>
         </div>
       </div>
-
-
     </div>
-
   </div>
-
 </template>
 
 <script>
 import BlogCard from "@/components/homeview/BlogCard"
+import {reactive} from "vue";
 
 export default {
   name: "index",
   components: {
     BlogCard
+  },
+  setup() {
+
+    const navSelect = reactive({
+      activeIndex: 0,
+      label: [
+        {
+          title: '推荐'
+        },
+        {
+          title: '最新'
+        },
+        {
+          title: '热榜'
+        }
+      ]
+    })
+    return {
+      navSelect
+    }
   }
 }
 </script>
@@ -63,8 +82,9 @@ export default {
 .divider {
   width: 100%;
 }
+
 .el-divider--horizontal {
-  margin: 0 ;
+  margin: 0;
   width: 90%;
 }
 </style>
