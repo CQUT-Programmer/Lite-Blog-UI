@@ -20,7 +20,7 @@
 import navigation from '../../components/views/Navigation.vue'
 import synthetical from './synthetical/index.vue'
 import myRouterLink from '@/components/tools/MyRouterLink.vue'
-import {ref, reactive, inject} from "vue";
+import {reactive, inject} from "vue";
 
 export default {
   name: "HomeView",

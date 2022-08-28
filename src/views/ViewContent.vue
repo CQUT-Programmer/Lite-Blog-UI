@@ -1,16 +1,21 @@
 <template>
-  <el-container>
+  <el-container class="view-content">
     <el-header class="main-header-box">
       <navigation/>
     </el-header>
 
     <el-main class="container">
       <!--TODO:子路由配置优化-->
+      <el-backtop :right="22" :bottom="70"/>
+
       <router-view/>
+      <el-affix position="bottom" :offset="20"  target=".view-content" id="el-affix">
+        <el-button circle>
+          <img :src="require('@/assets/image/message.png')" alt="反馈" >
+        </el-button>
+      </el-affix>
     </el-main>
 
-    <el-footer>
-    </el-footer>
   </el-container>
 </template>
 
@@ -28,15 +33,14 @@ export default {
   setup() {
 
     onMounted(() => {
-      setStorage("2243771889",'user_id', StorageType.SESSION)
+      setStorage("2243771889", 'user_id', StorageType.SESSION)
     })
-    return {
-    }
+    return {}
   }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
 .main-header-box {
   width: 100%;
@@ -50,9 +54,24 @@ export default {
 .container {
   position: relative;
   width: 100%;
-  max-width: 1200px;
+  height: 100%;
   text-align: center;
   text-align: -webkit-center;
   margin: 4rem auto 0 auto;
+  padding-bottom: 0 !important;
+}
+
+#el-affix {
+  text-align: right;
+
+  button {
+    height: 42px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, .12);
+  }
+
+  img {
+   width: 24px;
+    border-radius: 100%;
+  }
 }
 </style>

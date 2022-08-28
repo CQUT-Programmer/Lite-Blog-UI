@@ -116,8 +116,8 @@
               </div>
               <el-divider/>
               <div class="flex space-between font-small lowlight">
-                <span>我的设置</span>
-                <span>退出登录</span>
+                <span><a href="">我的设置</a></span>
+                <span><a href="">退出登录</a></span>
               </div>
             </el-dropdown-menu>
           </template>

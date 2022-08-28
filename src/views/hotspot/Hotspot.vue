@@ -1,5 +1,5 @@
 <template>
-  <el-container>
+  <el-container style="max-width: 1200px;">
     <el-aside style="width: 15%">
       <el-col>
         <el-menu
@@ -19,7 +19,8 @@
             <el-icon>
               <Sunny/>
             </el-icon>
-            <router-link :to="{path: '/' + 'liteblog/hotspot/hot'}" :class="{'active-color': activeIndex === '2'}">热门</router-link>
+            <router-link :to="{path: '/' + 'liteblog/hotspot/hot'}" :class="{'active-color': activeIndex === '2'}">热门
+            </router-link>
           </el-menu-item>
           <el-menu-item index="3" class="navigation">
             <el-icon>
@@ -186,6 +187,8 @@
 
     </el-aside>
   </el-container>
+
+
 </template>
 
 <script lang="ts">
@@ -216,7 +219,7 @@ export default {
       {index: '5', name: '推荐圈子', url: 'liteblog/hotspot/new'},
       {index: '6', name: '插件', url: 'liteblog/hotspot/new'},
     ])
-    const handleSelect = (key:string) => {
+    const handleSelect = (key: string) => {
       activeIndex.value = key
       toAssignUrl(navigation.value[Number.parseInt(key) - 1].url)
     }
@@ -247,7 +250,7 @@ export default {
   padding: 0 20px;
 }
 
-#write-dynamic div:nth-child(1) {
+#write-dynamic >div{
   margin-bottom: 20px;
 }
 
@@ -294,7 +297,7 @@ export default {
   flex-direction: column;
 }
 
-#hotspot-right >div {
+#hotspot-right > div {
   margin-bottom: 20px;
 }
 

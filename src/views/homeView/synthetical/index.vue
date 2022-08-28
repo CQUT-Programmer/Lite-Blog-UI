@@ -11,13 +11,13 @@
     </ul>
 
     <div class="blog-card-box background-white">
-      <div v-for="item in 10">
+      <div v-for="item in 30">
         <blog-card>
       <span>
         {{ item }} blogCard
       </span>
         </blog-card>
-        <div class="divider flex space-around" v-if="item < 10">
+        <div class="divider flex space-around" v-if="item < 30">
           <el-divider/>
         </div>
       </div>
