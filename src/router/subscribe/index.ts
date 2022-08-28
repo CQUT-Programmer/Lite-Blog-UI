@@ -12,7 +12,7 @@ const userRouter: RouteRecordRaw = {
     meta: {title: '标签'},
     component: () => import('@/views/subscribe/Subscribe.vue'),
     children: [
-        ...routers
+        ...routers,
     ]
 }
 

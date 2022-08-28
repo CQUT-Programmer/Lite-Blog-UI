@@ -1,6 +1,7 @@
 import {createRouter, createWebHistory, RouteRecordRaw} from 'vue-router'
 import viewContent from '@/views/ViewContent.vue'
 import Nprogress from '../tools/myNprogress.js'
+
 Nprogress.configure({showSpinner: false})
 
 
@@ -28,6 +29,12 @@ const routes: Array<RouteRecordRaw> = [
         meta: {title: '博客页面总内容'},
         children: [
             ...routers,
+            {
+                path: 'blogview/:blogId',
+                name: 'blogview',
+                component: () => import('@/views/blogview/index.vue'),
+            }
+
         ]
     },
 

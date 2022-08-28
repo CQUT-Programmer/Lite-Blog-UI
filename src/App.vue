@@ -1,12 +1,12 @@
 <template>
-  <div id="app">
+  <div id="app" :style="{'min-height' : clientHeight}">
     <router-view v-if="isRouterActive"></router-view>
   </div>
 
 </template>
 
 <script lang="ts">
-import {nextTick, ref, provide, onMounted,} from "vue";
+import {nextTick, ref, provide, } from "vue";
 import {useRouter} from "vue-router";
 import {Howl, Howler} from 'howler'
 export default {
@@ -41,7 +41,7 @@ export default {
     return {
       isRouterActive,
       reload,
-      toAssignUrl
+      toAssignUrl,
     }
   }
 }

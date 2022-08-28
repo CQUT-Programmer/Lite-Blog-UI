@@ -135,7 +135,6 @@ import {ref, inject} from "vue";
 import Avatar from '../avatar/Avatar.vue'
 import {Search, CaretBottom, CaretTop, Bell} from "@element-plus/icons";
 import myRouterLink from '@/components/tools/MyRouterLink.vue'
-
 export default {
   name: "Navigation",
   components: {

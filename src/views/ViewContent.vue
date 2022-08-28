@@ -1,22 +1,24 @@
 <template>
-  <el-container class="view-content">
-    <el-header class="main-header-box">
-      <navigation/>
-    </el-header>
 
-    <el-main class="container">
-      <!--TODO:子路由配置优化-->
-      <el-backtop :right="22" :bottom="70"/>
+    <el-container class="view-content" :style="{'min-height' : clientHeight}">
+      <el-header class="main-header-box ">
+        <navigation/>
+      </el-header>
 
-      <router-view/>
-      <el-affix position="bottom" :offset="20"  target=".view-content" id="el-affix">
-        <el-button circle>
-          <img :src="require('@/assets/image/message.png')" alt="反馈" >
-        </el-button>
-      </el-affix>
-    </el-main>
+      <el-main class="container">
+        <!--TODO:子路由配置优化-->
+        <el-backtop :right="22" :bottom="70"/>
 
-  </el-container>
+        <router-view/>
+        <el-affix position="bottom" :offset="20" id="el-affix">
+          <el-button circle>
+            <img :src="require('@/assets/image/message.png')" alt="反馈">
+          </el-button>
+        </el-affix>
+      </el-main>
+    </el-container>
+
+
 </template>
 
 <script lang="ts">
@@ -24,23 +26,32 @@ import navigation from "@/components/views/Navigation.vue"
 import {onMounted} from "vue";
 import {setStorage} from "@/tools/storage";
 import {StorageType} from "@/tools/constants";
-
+import {useStore} from "@/store";
+import {storeToRefs} from "pinia";
 export default {
   name: "ViewContent",
   components: {
     navigation
   },
   setup() {
-
+    const store = useStore()
+    const {clientHeight} = storeToRefs(store)
     onMounted(() => {
       setStorage("2243771889", 'user_id', StorageType.SESSION)
     })
-    return {}
+    return {
+     clientHeight
+    }
   }
 }
 </script>
 
 <style scoped lang="scss">
+
+
+.view-content {
+  overflow: auto;
+}
 
 .main-header-box {
   width: 100%;
@@ -70,7 +81,7 @@ export default {
   }
 
   img {
-   width: 24px;
+    width: 24px;
     border-radius: 100%;
   }
 }

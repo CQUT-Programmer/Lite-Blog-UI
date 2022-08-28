@@ -1,9 +1,10 @@
 <template>
   <md-editor
       editorId="lite-blog"
-      :onSave="onSave"
       v-model="text.mdValue"
-      :onUploadImg="loadImg"
+      @onSave="onSave"
+      @onUploadImg="loadImg"
+      @onHtmlChange="onHtmlChange"
   >
   </md-editor>
 </template>
@@ -14,11 +15,10 @@
 // script 引入
 import MdEditor from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
-
+import {Message} from "@/tools/Message";
 import {setStorage, getStorage} from "@/tools/storage";
-import {defineComponent, PropType, reactive, watch, toRefs} from "vue";
+import {defineComponent, PropType, reactive, toRefs, ref} from "vue";
 import {ContentType} from '@/tools/constants'
-
 import axios from "axios";
 
 
@@ -39,10 +39,19 @@ export default defineComponent({
     const prop = reactive(props)
     const blog_storage_key = 'blog_text'
     const text = reactive({
-      mdValue: getStorage(blog_storage_key) || ""
+      mdValue: getStorage('blog_text')
     })
-    const onSave = (text: any) => {
+
+    const htmlBlog = ref('')
+
+    const onSave = (text: string) => {
       setStorage(text, blog_storage_key)
+      setStorage(htmlBlog, blog_storage_key + '_html')
+      Message.success("保存成功")
+    }
+
+    const onHtmlChange = (text: string) => {
+      htmlBlog.value= text
     }
 
     // eslint-disable-next-line no-undef
@@ -67,15 +76,12 @@ export default defineComponent({
       )
       callback(res.map((item: any) => item.data.data.url))
     }
-    watch(() => text.mdValue, () => {
-
-      setStorage(text.mdValue, 'blog_text')
-    })
     return {
       onSave,
       text,
       ...toRefs(prop),
-      loadImg
+      loadImg,
+      onHtmlChange
     }
   }
 })
