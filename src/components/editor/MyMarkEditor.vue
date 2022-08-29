@@ -15,7 +15,7 @@
 // script 引入
 import MdEditor from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
-import {Message} from "@/tools/Message";
+import {Message} from "@/tools/message";
 import {setStorage, getStorage} from "@/tools/storage";
 import {defineComponent, PropType, reactive, toRefs, ref} from "vue";
 import {ContentType} from '@/tools/constants'
