@@ -52,7 +52,8 @@
       </div>
       <img :src="blogContent.posterImg" alt="大图片" v-show="blogContent.posterImg !== ''" id="main-img">
       <span v-html="blogContent.describe"></span>
-      <div v-html="blogText" id="blog-text"></div>
+      <el-divider/>
+      <div v-html="blogText" class="markdown-body"></div>
     </el-main>
     <el-aside>
       <div class="background-common flex-column">
@@ -81,6 +82,7 @@
 import {storeToRefs} from 'pinia'
 import {onMounted, computed} from "vue";
 import {marked} from "marked";
+import "../../../node_modules/github-markdown-css/github-markdown.css";
 import {useStore} from "@/store";
 import {getStorage} from "@/tools/storage";
 
@@ -95,7 +97,6 @@ export default {
     console.log('创建前')
   },
   setup() {
-    const render = new marked.TextRenderer()
     const router = useStore()
     console.log(router)
 
@@ -116,7 +117,6 @@ export default {
   }
 }
 </script>
-FGF
 <style scoped lang="scss">
 
 @import "@/assets/css/root.scss";
@@ -186,23 +186,6 @@ FGF
 
   }
 
-
-}
-</style>
-<style lang="scss">
-
-#blog-text {
-  li {
-    list-style: inside ;
-    padding: 10px;
-    p {
-      display: flex;
-    }
-    //&::marker {
-    //  content: url("../../assets/image/point.png");
-    //  padding: 10px;
-    //};
-  }
 
 }
 </style>

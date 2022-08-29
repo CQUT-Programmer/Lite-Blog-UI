@@ -39,7 +39,7 @@ export default defineComponent({
     const prop = reactive(props)
     const blog_storage_key = 'blog_text'
     const text = reactive({
-      mdValue: getStorage('blog_text')
+      mdValue: ''
     })
 
     const htmlBlog = ref('')

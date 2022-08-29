@@ -21,6 +21,7 @@ export const useStore = defineStore({
             },
             creationTime: dayjs(Date(), DateFormat.COMMON),
             readingVolume: 9999,
+            label: [{name: '算法'},{name: '前端'},{name: 'java'}],
             posterImg: require('@/assets/image/blogLogo.png'),
             describe: '博客测试描述',
             content:  getStorage('blog_text'),
