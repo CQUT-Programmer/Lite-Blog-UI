@@ -17,7 +17,8 @@
   <my-mark-editor
       v-show="mdEdit"
       class="editor"
-      key="mdEditor">
+      key="mdEditor"
+  >
   </my-mark-editor>
   <Editor v-if="!mdEdit"
           class="editor"

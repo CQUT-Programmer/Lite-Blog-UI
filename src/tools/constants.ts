@@ -37,6 +37,7 @@ export interface BlogContent {
     readingVolume: number,
     posterImg: string,
     describe: string,
+    label: Array<any>,
     content: string,
     awesomeNumber: number,
     commentNumber: number,
