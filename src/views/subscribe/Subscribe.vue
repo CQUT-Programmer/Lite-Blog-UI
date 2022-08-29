@@ -76,6 +76,6 @@ export default {
 
 #sub-content {
   margin-top: 3.5rem;
-  width: 70%;
+  width: 60%;
 }
 </style>

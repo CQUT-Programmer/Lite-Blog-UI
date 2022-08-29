@@ -42,7 +42,7 @@ export default {
 <style scoped lang="scss">
 
 .subscribe-card {
-  width: 30%;
+  width: 25vm;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
