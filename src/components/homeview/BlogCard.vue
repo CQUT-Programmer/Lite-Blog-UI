@@ -1,9 +1,9 @@
 <template>
-  <!--  @click="toAssignUrl('liteblog/blogview/12345678')"-->
-  <div class="blogCard flex background-common" @mouseover="mouseOver = true" @mouseleave="mouseOver = false">
-    <el-icon id="close-icon" v-if="mouseOver"><Close /></el-icon>
+  <!--  -->
+  <div class="blogCard flex background-common" @mouseover="mouseOver = true" @mouseleave="mouseOver = false" @click="toAssignUrl('liteblog/blogview/12345678')">
+    <el-icon id="close-icon" v-if="mouseOver" @click.stop="{}"><Close /></el-icon>
     <div class="flex-column space-between" style="height: 100%;">
-      <el-space :size="size" :spacer="spacer">
+      <el-space :size="size" :spacer="spacer" @click.stop="{}">
         <span>{{ blogContent.author.name }}</span>
         <span>{{ blogContent.creationTime }}</span>
         <span>
@@ -13,18 +13,19 @@
           </span>
         </span>
       </el-space>
-      <h4 v-html="blogContent.title"></h4>
-      <div v-html="blogContent.describe"></div>
-      <div class="icon flex">
-        <span><el-icon><View/></el-icon>762</span>
-        <span>
-          <img src="../../assets/image/awesome.png" alt="点赞" class="icon-img">
+
+        <h4 v-html="blogContent.title"></h4>
+        <div v-html="blogContent.describe"></div>
+        <div class="icon flex">
+          <span  @click.stop="{}"><el-icon><View/></el-icon>762</span>
+          <span>
+          <img src="../../assets/image/awesome.png" alt="点赞" class="icon-img" @click.stop="{}">
           <span>4</span>
         </span>
-        <span><el-icon><ChatRound/></el-icon>10</span>
-      </div>
+          <span><el-icon><ChatRound/></el-icon>10</span>
+        </div>
     </div>
-    <img :src="blogContent.posterImg" alt="描述图片" class="poster-img">
+    <img :src="blogContent.posterImg" alt="描述图片" class="poster-img" @click="toAssignUrl('liteblog/blogview/12345678')">
   </div>
 
 </template>
