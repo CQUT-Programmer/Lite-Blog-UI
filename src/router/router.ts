@@ -1,8 +1,8 @@
 import {createRouter, createWebHistory, RouteRecordRaw} from 'vue-router'
 import viewContent from '@/views/ViewContent.vue'
-import Nprogress from '../tools/myNprogress.js'
-
-Nprogress.configure({showSpinner: false})
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+NProgress.configure({showSpinner: false})
 
 
 //导入规范路由
@@ -54,12 +54,12 @@ const router = createRouter({
 
 
 router.beforeEach((_from, _to, next) => {
-    Nprogress.start()
+    NProgress.start()
     next()
 })
 router.afterEach((_to, _from) => {
     console.log()
-    Nprogress.done()
+    NProgress.done()
 })
 
 

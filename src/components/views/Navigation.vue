@@ -181,6 +181,7 @@ export default {
 <style scoped>
 
 .main-header {
+  width: 80%;
   display: flex;
   justify-content: space-between;
   background: #fff;
@@ -189,10 +190,8 @@ export default {
   left: 0;
   right: 0;
   top: 0;
-  transition: all .2s;
-  margin: 0 auto;
-  max-width: 1440px;
   height: 65px;
+  margin: 0 auto;
   border-bottom: 1px #dcdfe6 solid;
 }
 

@@ -70,8 +70,8 @@
 
 <script lang="ts">
 import {inject, onMounted, reactive} from "vue";
-import {StorageType} from '@/tools/constants'
-import {getStorage} from "@/tools/storage";
+import {StorageType} from '@/utils/constants'
+import {getStorage} from "@/utils/storage";
 export default {
   name: "User",
   setup() {

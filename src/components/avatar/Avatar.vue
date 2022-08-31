@@ -5,8 +5,8 @@
 
 <script lang="ts">
 import {inject} from "vue";
-import {getStorage} from "@/tools/storage";
-import {StorageType} from "@/tools/constants";
+import {getStorage} from "@/utils/storage";
+import {StorageType} from "@/utils/constants";
 
 export default {
   name: "Avatar",

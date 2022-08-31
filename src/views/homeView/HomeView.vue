@@ -1,6 +1,6 @@
 <template>
   <div style="max-width: 960px" >
-    <div class="home-view-select">
+    <div class="home-view-select" :style="{'top': isHeader ? '4.1rem' : 0}">
       <div class="select-list">
        <my-router-link :view-select="homeViewSelect" :width="'60%'" :border_bottom="false"/>
         <a @click="toAssignUrl('liteblog/subscribe/')" v-html="'标签管理'"></a>
@@ -20,7 +20,9 @@
 import navigation from '../../components/views/Navigation.vue'
 import synthetical from './synthetical/index.vue'
 import myRouterLink from '@/components/tools/MyRouterLink.vue'
-import {reactive, inject} from "vue";
+import {reactive, inject, onMounted, ref} from "vue";
+import {setStorage} from "@/utils/storage";
+import {StorageType} from "@/utils/constants";
 
 export default {
   name: "HomeView",
@@ -30,7 +32,14 @@ export default {
     myRouterLink
   },
   setup() {
-
+    onMounted(() => {
+      window.addEventListener('scroll', windowScroll, true)
+    })
+    const isHeader = ref(true)
+    const windowScroll = () => {
+      const scrollY = window.scrollY
+      isHeader.value = scrollY < 400;
+    }
     const reload = inject('viewReload')
     const toAssignUrl: any = inject('toAssignUrl')
     const homeViewSelect = reactive([
@@ -49,7 +58,8 @@ export default {
     return {
       reload,
       homeViewSelect,
-      toAssignUrl
+      toAssignUrl,
+      isHeader
     }
   },
 }
@@ -60,12 +70,11 @@ export default {
 
 .home-view-select {
   position: fixed;
-  top: 4.1rem;
   width: 100%;
   height: 3.133rem;
   z-index: 10;
-  transition: all .2s;
   transform: translateZ(0);
+  transition: all .5s ;
   left: 0;
   background-color: #fff;
 

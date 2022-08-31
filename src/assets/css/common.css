@@ -64,7 +64,7 @@ a:hover {
 }
 
 .active-color {
-    color: cornflowerblue;
+    color: cornflowerblue !important;
 }
 
 .flex-center-h100 {

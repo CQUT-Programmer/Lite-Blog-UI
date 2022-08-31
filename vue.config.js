@@ -12,17 +12,17 @@ process.env.VUE_APP_UPDATE_TIME = time
 module.exports = defineConfig({
     lintOnSave: false,
 
-  devServer: {
-    port: process.env.VUE_APP_PORT || 7090,
-/*    proxy: {
-      "/api":{
-        target:"http://localhost:8088/",
-        changeOrigin:true,
-        pathRewrite:{
-          "^/api" : "/api"
-        }
-      }
-    },*/
+    devServer: {
+        port: process.env.VUE_APP_PORT || 7090,
+        /*    proxy: {
+              "/api":{
+                target:"http://localhost:8088/",
+                changeOrigin:true,
+                pathRewrite:{
+                  "^/api" : "/api"
+                }
+              }
+            },*/
 
     },
     configureWebpack: {

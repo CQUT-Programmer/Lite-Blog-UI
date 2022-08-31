@@ -15,10 +15,10 @@
 // script 引入
 import MdEditor from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
-import {Message} from "@/tools/message";
-import {setStorage, getStorage} from "@/tools/storage";
+import {Message} from "@/utils/message";
+import {setStorage, getStorage} from "@/utils/storage";
 import {defineComponent, PropType, reactive, toRefs, ref} from "vue";
-import {ContentType} from '@/tools/constants'
+import {ContentType} from '@/utils/constants'
 import axios from "axios";
 
 

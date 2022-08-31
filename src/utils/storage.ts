@@ -1,7 +1,6 @@
 import cookie from "js-cookie";
 import {TOKEN_KEY, TOKEN_STORAGE, StorageType} from './constants'
 
-
 export function getStorage(storage_key: string, storage_type = StorageType.LOCAL) {
     let token
     switch (storage_type) {
