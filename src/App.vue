@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :style="{'min-height' : clientHeight}">
+  <div id="app">
     <router-view v-if="isRouterActive"></router-view>
   </div>
 

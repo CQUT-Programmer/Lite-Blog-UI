@@ -1,6 +1,6 @@
 <template>
 
-  <el-container class="view-content" :style="{'min-height' : clientHeight}">
+  <el-container class="view-content" :style="{'min-height' : clientHeight+ 'px'}">
     <el-header class="main-header-box " :class="isHeader ? 'header-show ' : 'header-hide'">
       <navigation :class="isHeader ? 'header-show ' : 'header-hide'"/>
     </el-header>

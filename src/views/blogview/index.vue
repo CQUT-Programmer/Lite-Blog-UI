@@ -121,57 +121,69 @@ export default {
       article: ''
     })
     const activeIndex = ref(0)
-    const {blogContent} = storeToRefs(store)
+    const {blogContent, clientHeight} = storeToRefs(store)
     const scrollModule: any = reactive({
       listHeight: [],
       catalogLists: [],
       linkLists: [],
     })
     onMounted(() => {
-      window.addEventListener('scroll', handleScroll, true)
-      nextTick(() => {
-        getCatalogList()
-        getTitleHeight()
-      })
-    })
+
+          Object.defineProperties(window, {
+                changeActiveIndex: {
+                  set(v: any) {
+                    setTimeout(() => {
+                      activeIndex.value = v
+                    }, 3)
+                  }
+                }
+              })
+          window.addEventListener('scroll', handleScroll, true)
+          nextTick(() => {
+            getCatalogList()
+            getTitleHeight()
+          })
+        }
+    )
+
 
     //获取目录的高度
     const directoryMaxHeight = computed(() => {
       return scrollModule.linkLists.length >= 20 ? '70vh' : scrollModule.linkLists.length / 20 * 70 + 'vh'
     })
 
+    //格式化博客内容
     const blogTransform: { data: any, toc: string[] } = reactive(directoryAnchor(marked(blogContent.value.content)))
 
     const blogText = computed(() => {
       return blogTransform.data
-
     })
 
     const changeActiveIndex = (index: number) => {
       activeIndex.value = index
     }
 
+
     const blogTextDirectory = computed(() => {
       return toToc(blogTransform.toc)
     })
 
     const getTitleHeight = () => {
+
       const article = domRefs.article
       let titleLists = Array.prototype.slice.call((article as unknown as Element).getElementsByClassName('toc-title'))
       titleLists.forEach(item => {
         scrollModule.listHeight.push(item.offsetTop)
       })
-
-      scrollModule.listHeight[scrollModule.listHeight - 1] =   2 * (scrollModule.listHeight - 1 )
+      scrollModule.listHeight.push(2 * scrollModule.listHeight[scrollModule.listHeight.length - 1])
     }
 
     watch(activeIndex, (newVal, oldVal) => {
-      console.log(newVal, oldVal)
       let data: HTMLElement = document.getElementById(`toc-link-${newVal}`) as HTMLElement
       data.style.color = '#2186ff'
       data = document.getElementById(`toc-link-${oldVal}`) as HTMLElement
       data.style.color = '#000';
-    },{deep: true})
+    }, {deep: true})
 
     const getCatalogList = () => {
       const linkLists = domRefs.linkLists
@@ -180,21 +192,25 @@ export default {
 
     }
 
+    //监听页面滚动事件
     const handleScroll = () => {
-      const scrollY = window.scrollY
-      for (let i = 0; i < scrollModule.listHeight.length - 1; i ++) {
+      const scrollY = window.scrollY - clientHeight.value
+      for (let i = 0; i < scrollModule.listHeight.length - 1; i++) {
         let h1 = scrollModule.listHeight[i]
         let h2 = scrollModule.listHeight[i + 1]
-        const linkLists: Array<HTMLElement>  = scrollModule.linkLists
+        const linkLists: Array<HTMLElement> = scrollModule.linkLists
         if (scrollY >= h1 && scrollY <= h2) {
-          activeIndex.value = i
+
+          const renderIndex = i - 1
+          activeIndex.value = renderIndex
           let top = 0
-          top = i > 20 ? scrollModule.listHeight.length - i >= 20 ? - 28 * (i -20) : - 28 * (scrollModule.listHeight.length - 20) : 0
+          top = renderIndex > 20 ? scrollModule.listHeight.length - renderIndex >= 20 ? -28 * (renderIndex - 20) : -28 * (scrollModule.listHeight.length - 20) : 0
           linkLists[0].style.marginTop = `${top}px`
         }
 
       }
     }
+
 
     return {
       ...toRefs(domRefs),
@@ -296,8 +312,15 @@ export default {
 
 
 #directory {
-  overflow: hidden;
+  overflow: auto;
   transition: margin-top 2s;
+  scrollbar-width: none; /* firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+  &::-webkit-scrollbar {
+
+    display: none; /* Chrome Safari */
+
+  }
 }
 
 .catalog-list {

@@ -29,18 +29,20 @@ export const useStore = defineStore({
             commentNumber: 184867,
         }
 
-        const clientHeight = document.documentElement.clientHeight - 1 + 'px'
+        const clientHeight = document.documentElement.clientHeight - 1
         return {
             blogContent,
             clientHeight
         }
 
     },
+
     getters: {
 
     },
 
     actions: {
 
-    }
+    },
+
 })

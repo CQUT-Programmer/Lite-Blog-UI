@@ -1,4 +1,4 @@
-
+import {VueElement} from "vue";
 
 export function directoryAnchor(data: any) {
 
@@ -12,6 +12,8 @@ export function directoryAnchor(data: any) {
     return {data: data, toc: toc}
 }
 
+
+
 export function toToc(data: string[]) {
 
     const levelStack: string[] = []
@@ -20,12 +22,13 @@ export function toToc(data: string[]) {
     const addStartUl = () => {
         result += `<ul class='catalog-list'>`
     }
+
     const addEndUrl = () => {
         result += `</ul>\n`
     }
 
     const addLi = (index: number, itemText: string) => {
-        result += `<li><a class='link' @click="activeIndex = ${index}" id="toc-link-${index}" :class="{'active-color': ${index} === activeIndex}"  href="#${itemText}">${itemText}</a></li>\n`
+        result += `<li><a class='link' onclick="changeActiveIndex = '${index}'" id="toc-link-${index}"  href="#${itemText}">${itemText}</a></li>\n`
     }
     data.forEach((item: any, index: number) => {
 
