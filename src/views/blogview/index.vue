@@ -200,8 +200,7 @@ export default {
         let h2 = scrollModule.listHeight[i + 1]
         const linkLists: Array<HTMLElement> = scrollModule.linkLists
         if (scrollY >= h1 && scrollY <= h2) {
-
-          const renderIndex = i - 1
+          const renderIndex = i
           activeIndex.value = renderIndex
           let top = 0
           top = renderIndex > 20 ? scrollModule.listHeight.length - renderIndex >= 20 ? -28 * (renderIndex - 20) : -28 * (scrollModule.listHeight.length - 20) : 0

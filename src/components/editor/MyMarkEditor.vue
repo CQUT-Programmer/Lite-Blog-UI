@@ -16,7 +16,7 @@
 import MdEditor from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
 import {Message} from "@/utils/message";
-import {setStorage, getStorage} from "@/utils/storage";
+import {setStorage} from "@/utils/storage";
 import {defineComponent, PropType, reactive, toRefs, ref} from "vue";
 import {ContentType} from '@/utils/constants'
 import axios from "axios";
@@ -46,7 +46,6 @@ export default defineComponent({
 
     const onSave = (text: string) => {
       setStorage(text, blog_storage_key)
-      setStorage(htmlBlog, blog_storage_key + '_html')
       Message.success("保存成功")
     }
 
