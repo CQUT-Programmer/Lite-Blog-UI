@@ -74,13 +74,16 @@
         </span>
       </div>
 
-      <el-affix :offset="120">
-        <div class="background-common flex-column" :style="{'height': directoryMaxHeight}" id="directory">
-          <h1 style="margin: 0">目录</h1>
-          <el-divider/>
-          <div v-html="blogTextDirectory" ref="linkLists"></div>
-        </div>
-      </el-affix>
+      <keep-alive>
+        <el-affix :offset="120">
+          <div class="background-common flex-column" :style="{'height': directoryMaxHeight}">
+            <h1 style="margin: 0">目录</h1>
+            <el-divider/>
+            <div v-html="blogTextDirectory" ref="linkLists" id="directory"></div>
+          </div>
+        </el-affix>
+      </keep-alive>
+
 
     </el-aside>
   </el-container>
@@ -90,7 +93,7 @@
 <script lang="ts">
 
 import {storeToRefs} from 'pinia'
-import {onMounted, computed, ref, reactive, watch, toRefs, nextTick} from "vue";
+import {onMounted, computed, ref, reactive, watch, toRefs, nextTick, inject} from "vue";
 import {marked} from "marked";
 import "../../../node_modules/github-markdown-css/github-markdown.css";
 import {useStore} from "@/store";
@@ -114,9 +117,10 @@ export default {
   },
   setup() {
 
+    const viewReload: any = inject('viewReload')
     const router = useRouter()
     const store = useStore()
-    const domRefs = reactive({
+    const domRefs: any = reactive({
       linkLists: '',
       article: ''
     })
@@ -129,29 +133,32 @@ export default {
     })
     onMounted(() => {
 
-          Object.defineProperties(window, {
-                changeActiveIndex: {
-                  set(v: any) {
-                    setTimeout(() => {
-                      activeIndex.value = v
-                    }, 3)
-                  }
-                }
-              })
-          window.addEventListener('scroll', handleScroll, true)
           nextTick(() => {
             getCatalogList()
             getTitleHeight()
           })
+
+          Object.defineProperties(window, {
+            changeActiveIndex: {
+              set(v: any) {
+                setTimeout(() => {
+                  activeIndex.value = v
+                }, 3)
+              }
+            }
+          })
+          window.addEventListener('scroll', handleScroll, false)
+
+
         }
     )
+    // 获取目录的高度
+    const directoryMaxHeight: any = computed(() => {
 
-
-    //获取目录的高度
-    const directoryMaxHeight = computed(() => {
-      return scrollModule.linkLists.length >= 20 ? '70vh' : scrollModule.linkLists.length / 20 * 70 + 'vh'
+      let height = scrollModule.linkLists.length >= 16 ? '64' : scrollModule.linkLists.length / 16 * 64
+      height = height > 0 ? height : 64
+      return height + 'vh'
     })
-
     //格式化博客内容
     const blogTransform: { data: any, toc: string[] } = reactive(directoryAnchor(marked(blogContent.value.content)))
 
@@ -179,10 +186,10 @@ export default {
     }
 
     watch(activeIndex, (newVal, oldVal) => {
-      let data: HTMLElement = document.getElementById(`toc-link-${newVal}`) as HTMLElement
-      data.style.color = '#2186ff'
-      data = document.getElementById(`toc-link-${oldVal}`) as HTMLElement
-      data.style.color = '#000';
+      let data: HTMLElement = document.getElementById(`toc-link-${oldVal}`) as HTMLElement
+      data.classList.remove('active');
+      data = document.getElementById(`toc-link-${newVal}`) as HTMLElement
+      data.classList.add('active')
     }, {deep: true})
 
     const getCatalogList = () => {
@@ -191,22 +198,22 @@ export default {
       scrollModule.catalogLists = Array.prototype.slice.call((linkLists as unknown as Element).getElementsByClassName('catalog-list'))
 
     }
-
     //监听页面滚动事件
     const handleScroll = () => {
       const scrollY = window.scrollY - clientHeight.value
       for (let i = 0; i < scrollModule.listHeight.length - 1; i++) {
         let h1 = scrollModule.listHeight[i]
         let h2 = scrollModule.listHeight[i + 1]
-        const linkLists: Array<HTMLElement> = scrollModule.linkLists
         if (scrollY >= h1 && scrollY <= h2) {
           const renderIndex = i
           activeIndex.value = renderIndex
           let top = 0
-          top = renderIndex > 20 ? scrollModule.listHeight.length - renderIndex >= 20 ? -28 * (renderIndex - 20) : -28 * (scrollModule.listHeight.length - 20) : 0
-          linkLists[0].style.marginTop = `${top}px`
+          top = renderIndex >= 12 ? scrollModule.listHeight.length - renderIndex >= 12 ? 28 * (renderIndex - 12) : 28 * (scrollModule.listHeight.length - 12) : 0
+          const linkList = domRefs.linkLists
+          nextTick(() => {
+            linkList.scrollTop = Number.parseInt(`${top}`)
+          })
         }
-
       }
     }
 
@@ -299,7 +306,7 @@ export default {
 
   #aside2 {
     > div {
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
   }
 
@@ -313,12 +320,35 @@ export default {
 #directory {
   overflow: auto;
   transition: margin-top 2s;
-  scrollbar-width: none; /* firefox */
-  -ms-overflow-style: none; /* IE 10+ */
+
   &::-webkit-scrollbar {
+    width: 6px;
+    height: 80px;
+  }
 
-    display: none; /* Chrome Safari */
+  &::-webkit-scrollbar-thumb {
+    background-color: #e4e6eb;
+    outline: none;
+    border-radius: 2px;
+  }
 
+  .active {
+    color: #1e80ff;
+
+    &:before {
+      content: "";
+      position: absolute;
+      margin-top: 7px;
+      width: 4px;
+      z-index: 10;
+      height: 16px;
+      background: #1e80ff;
+      border-radius: 0 4px 4px 0;
+    }
+
+    a {
+      color: #1e80ff;
+    }
   }
 }
 
@@ -329,11 +359,11 @@ export default {
   position: relative;
   font-size: 15px;
 
-  &:first-child::before {
+  &:first-child:before {
     content: "";
     position: absolute;
     top: 10px;
-    left: 1px;
+    left: 9px;
     bottom: 0;
     width: 5px;
     background-color: #ebedef;
@@ -382,7 +412,7 @@ export default {
     padding: 4px 0 4px 12px;
 
     &:hover {
-      background-color: #ebedef;
+      background-color: rgba(235, 237, 239, 0.99);
     }
   }
 }

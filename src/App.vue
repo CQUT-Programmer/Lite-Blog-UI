@@ -23,7 +23,6 @@ export default {
       isRouterActive.value = false
       await nextTick()
       isRouterActive.value = true
-      console.log(isRouterActive)
     }
     provide("viewReload", reload)
     const sound = new Howl({

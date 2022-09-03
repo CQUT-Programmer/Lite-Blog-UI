@@ -28,7 +28,7 @@ export function toToc(data: string[]) {
     }
 
     const addLi = (index: number, itemText: string) => {
-        result += `<li><a class='link' onclick="changeActiveIndex = '${index}'" id="toc-link-${index}"  href="#${itemText}">${itemText}</a></li>\n`
+        result += `<li id="toc-link-${index}"><a class='link' onclick="changeActiveIndex = '${index}'"   href="#${itemText}">${itemText}</a></li>\n`
     }
     data.forEach((item: any, index: number) => {
 
