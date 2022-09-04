@@ -61,7 +61,6 @@ export default defineComponent({
               // eslint-disable-next-line no-undef
               const form = new FormData();
               form.append('file', file)
-
               axios.put('http://localhost:8088/api/cos/upload/public', form, {
                 headers: {
                   'Content-Type': ContentType.UPLOAD,

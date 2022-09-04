@@ -103,18 +103,6 @@ import {useRouter} from "vue-router";
 
 export default {
   name: "BlogContent",
-  props: {
-    blogId: {
-      type: String
-    }
-  },
-
-  methods: {
-    tets() {
-      {
-      }
-    }
-  },
   setup() {
 
     const viewReload: any = inject('viewReload')
@@ -198,6 +186,7 @@ export default {
       scrollModule.catalogLists = Array.prototype.slice.call((linkLists as unknown as Element).getElementsByClassName('catalog-list'))
 
     }
+
     //监听页面滚动事件
     const handleScroll = () => {
       const scrollY = window.scrollY - clientHeight.value
@@ -333,7 +322,7 @@ export default {
   }
 
   .active {
-    color: #1e80ff;
+    color:  #2186ff;
 
     &:before {
       content: "";
@@ -342,7 +331,7 @@ export default {
       width: 4px;
       z-index: 10;
       height: 16px;
-      background: #1e80ff;
+      background:  #2186ff;
       border-radius: 0 4px 4px 0;
     }
 
@@ -400,7 +389,7 @@ export default {
 
 
   li:hover {
-    background-color: #fcfcfc;
+    background-color: #f7f8fa;
   }
 
   a {
@@ -412,7 +401,7 @@ export default {
     padding: 4px 0 4px 12px;
 
     &:hover {
-      background-color: rgba(235, 237, 239, 0.99);
+      background-color: #f7f8fa;
     }
   }
 }
