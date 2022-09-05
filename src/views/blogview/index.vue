@@ -33,27 +33,41 @@
         </el-button>
       </div>
     </el-aside>
-    <el-main id="blog-content-main">
-      <h1>{{ blogContent.title }}</h1>
-      <div class="flex space-between">
-        <div class="flex">
-          <el-avatar :src="blogContent.author.headUrl"></el-avatar>
-          <div class="flex-column space-between">
-            <span v-html="blogContent.author.name"></span>
-            <span>{{ blogContent.creationTime + ' ~ 阅读 ' + blogContent.readingVolume }} </span>
+    <el-main>
+      <div id="blog-content-main">
+        <h1>{{ blogContent.title }}</h1>
+        <div class="flex space-between">
+          <div class="flex">
+            <el-avatar :src="blogContent.author.headUrl"></el-avatar>
+            <div class="flex-column space-between">
+              <span v-html="blogContent.author.name"></span>
+              <span>{{ blogContent.creationTime + ' ~ 阅读 ' + blogContent.readingVolume }} </span>
+            </div>
           </div>
+          <el-button type="primary" plain>
+            <el-icon>
+              <Plus/>
+            </el-icon>
+            关注
+          </el-button>
         </div>
-        <el-button type="primary" plain>
-          <el-icon>
-            <Plus/>
-          </el-icon>
-          关注
-        </el-button>
+        <img :src="blogContent.posterImg" alt="大图片" v-show="blogContent.posterImg !== ''" id="main-img">
+        <span v-html="blogContent.describe"></span>
+        <el-divider/>
+        <div v-html="blogText" class="markdown-body" ref="article"/>
       </div>
-      <img :src="blogContent.posterImg" alt="大图片" v-show="blogContent.posterImg !== ''" id="main-img">
-      <span v-html="blogContent.describe"></span>
-      <el-divider/>
-      <div v-html="blogText" class="markdown-body" ref="article"></div>
+
+      <div id="comment-content">
+        <h3>评论</h3>
+        <div class="flex">
+          <avatar @click="{}"></avatar>
+        <comment-input></comment-input>
+        </div>
+        <h3 class="flex align-center">热门评论 <img src="../../assets/image/flame.png" alt="火苗" style="margin-left: 4px"></h3>
+        <div>
+          <comment v-for="item in comment" :comment-object="item"/>
+        </div>
+      </div>
     </el-main>
     <el-aside id="aside2">
 
@@ -75,7 +89,7 @@
       </div>
 
       <keep-alive>
-        <el-affix :offset="120">
+        <el-affix :offset="40">
           <div class="background-common flex-column" :style="{'height': directoryMaxHeight}">
             <h1 style="margin: 0">目录</h1>
             <el-divider/>
@@ -99,26 +113,101 @@ import "../../../node_modules/github-markdown-css/github-markdown.css";
 import {useStore} from "@/store";
 import {getStorage} from "@/utils/storage";
 import {directoryAnchor, toToc} from "@/views/blogview/directoryAnchor";
-import {useRouter} from "vue-router";
+import avatar from '@/components/avatar/Avatar.vue'
+import commentInput from './components/CommentInput.vue'
+import comment from './components/commentCard/index.vue'
 
 export default {
   name: "BlogContent",
+  components: {
+    avatar,
+    commentInput,
+    comment
+  },
   setup() {
 
-    const viewReload: any = inject('viewReload')
-    const router = useRouter()
     const store = useStore()
     const domRefs: any = reactive({
       linkLists: '',
       article: ''
     })
     const activeIndex = ref(0)
-    const {blogContent, clientHeight} = storeToRefs(store)
+    const {blogContent, clientHeight, comment} = storeToRefs(store)
     const scrollModule: any = reactive({
       listHeight: [],
       catalogLists: [],
       linkLists: [],
     })
+
+    // 获取目录的高度
+    const directoryMaxHeight: any = computed(() => {
+
+      let height = scrollModule.linkLists.length >= 16 ? '64' : scrollModule.linkLists.length / 16 * 64
+      height = height > 0 ? height : 64
+      return height + 'vh'
+    })
+    //格式化博客内容
+    const blogTransform: { data: any, toc: string[] } = reactive(directoryAnchor(marked(blogContent.value.content)))
+
+    const blogText = computed(() => {
+      return blogTransform.data
+    })
+
+    const changeActiveIndex = (index: number) => {
+      activeIndex.value = index
+    }
+
+    const blogTextDirectory = computed(() => {
+      return toToc(blogTransform.toc)
+    })
+
+    const getTitleHeight = () => {
+
+      const article = domRefs.article
+      let titleLists = Array.prototype.slice.call((article as unknown as Element).getElementsByClassName('toc-title'))
+      titleLists.forEach(item => {
+        scrollModule.listHeight.push(item.offsetTop)
+      })
+      scrollModule.listHeight.push(2 * scrollModule.listHeight[scrollModule.listHeight.length - 1])
+    }
+
+
+    watch(activeIndex, (newVal, oldVal) => {
+      let data: HTMLElement = document.getElementById(`toc-link-${oldVal}`) as HTMLElement
+      data.classList.remove('active');
+      data = document.getElementById(`toc-link-${newVal}`) as HTMLElement
+      data.classList.add('active')
+    }, {deep: true})
+
+    const getCatalogList = () => {
+      const linkLists = domRefs.linkLists
+      scrollModule.linkLists = Array.prototype.slice.call((linkLists as unknown as HTMLElement).getElementsByClassName('link'))
+      scrollModule.catalogLists = Array.prototype.slice.call((linkLists as unknown as Element).getElementsByClassName('catalog-list'))
+
+    }
+
+    //监听页面滚动事件
+    const handleScroll = () => {
+      const scrollY = window.scrollY - clientHeight.value
+
+      //通过offsetTop 属性,循环匹配当前活跃的标题属于哪儿
+      for (let i = 0; i < scrollModule.listHeight.length - 1; i++) {
+        let h1 = scrollModule.listHeight[i]
+        let h2 = scrollModule.listHeight[i + 1]
+        if (scrollY >= h1 && scrollY <= h2) {
+          const renderIndex = i
+          activeIndex.value = renderIndex
+          let top = 0
+          top = renderIndex >= 12 ? scrollModule.listHeight.length - renderIndex >= 12 ? 28 * (renderIndex - 12) : 28 * (scrollModule.listHeight.length - 12) : 0
+          const linkList = domRefs.linkLists
+          //通过设置scroll容器顶部的距离，实现目录的实时滚动
+          nextTick(() => {
+            linkList.scrollTop = Number.parseInt(`${top}`)
+          })
+        }
+      }
+    }
+
     onMounted(() => {
 
           nextTick(() => {
@@ -140,87 +229,21 @@ export default {
 
         }
     )
-    // 获取目录的高度
-    const directoryMaxHeight: any = computed(() => {
-
-      let height = scrollModule.linkLists.length >= 16 ? '64' : scrollModule.linkLists.length / 16 * 64
-      height = height > 0 ? height : 64
-      return height + 'vh'
-    })
-    //格式化博客内容
-    const blogTransform: { data: any, toc: string[] } = reactive(directoryAnchor(marked(blogContent.value.content)))
-
-    const blogText = computed(() => {
-      return blogTransform.data
-    })
-
-    const changeActiveIndex = (index: number) => {
-      activeIndex.value = index
-    }
-
-
-    const blogTextDirectory = computed(() => {
-      return toToc(blogTransform.toc)
-    })
-
-    const getTitleHeight = () => {
-
-      const article = domRefs.article
-      let titleLists = Array.prototype.slice.call((article as unknown as Element).getElementsByClassName('toc-title'))
-      titleLists.forEach(item => {
-        scrollModule.listHeight.push(item.offsetTop)
-      })
-      scrollModule.listHeight.push(2 * scrollModule.listHeight[scrollModule.listHeight.length - 1])
-    }
-
-    watch(activeIndex, (newVal, oldVal) => {
-      let data: HTMLElement = document.getElementById(`toc-link-${oldVal}`) as HTMLElement
-      data.classList.remove('active');
-      data = document.getElementById(`toc-link-${newVal}`) as HTMLElement
-      data.classList.add('active')
-    }, {deep: true})
-
-    const getCatalogList = () => {
-      const linkLists = domRefs.linkLists
-      scrollModule.linkLists = Array.prototype.slice.call((linkLists as unknown as HTMLElement).getElementsByClassName('link'))
-      scrollModule.catalogLists = Array.prototype.slice.call((linkLists as unknown as Element).getElementsByClassName('catalog-list'))
-
-    }
-
-    //监听页面滚动事件
-    const handleScroll = () => {
-      const scrollY = window.scrollY - clientHeight.value
-      for (let i = 0; i < scrollModule.listHeight.length - 1; i++) {
-        let h1 = scrollModule.listHeight[i]
-        let h2 = scrollModule.listHeight[i + 1]
-        if (scrollY >= h1 && scrollY <= h2) {
-          const renderIndex = i
-          activeIndex.value = renderIndex
-          let top = 0
-          top = renderIndex >= 12 ? scrollModule.listHeight.length - renderIndex >= 12 ? 28 * (renderIndex - 12) : 28 * (scrollModule.listHeight.length - 12) : 0
-          const linkList = domRefs.linkLists
-          nextTick(() => {
-            linkList.scrollTop = Number.parseInt(`${top}`)
-          })
-        }
-      }
-    }
-
-
     return {
+
       ...toRefs(domRefs),
       blogContent,
       getStorage,
+      comment,
       blogText,
       blogTextDirectory,
       activeIndex,
       changeActiveIndex,
       scrollModule,
-      directoryMaxHeight
+      directoryMaxHeight,
     }
   }
 }
-
 </script>
 <style scoped lang="scss">
 
@@ -245,9 +268,7 @@ export default {
 
   #blog-content-main {
     background-color: #fff;
-    padding: 20px;
-    margin-left: 70px;
-
+    padding: 30px;
     & > * {
       margin-bottom: 20px;
     }
@@ -274,9 +295,13 @@ export default {
   }
 
   .el-main {
-    width: 40%;
+    width: 50%;
     overflow-y: hidden;
+    margin-left: 50px;
 
+    > * {
+      margin-bottom: 20px;
+    }
     #main-img {
       width: 100%;
     }
@@ -301,6 +326,13 @@ export default {
 
 }
 
+#comment-content {
+  @extend .background-common;
+  div {
+    width: 100%;
+  }
+}
+
 </style>
 
 <style lang="scss">
@@ -322,7 +354,7 @@ export default {
   }
 
   .active {
-    color:  #2186ff;
+    color: #2186ff;
 
     &:before {
       content: "";
@@ -331,7 +363,7 @@ export default {
       width: 4px;
       z-index: 10;
       height: 16px;
-      background:  #2186ff;
+      background: #2186ff;
       border-radius: 0 4px 4px 0;
     }
 
@@ -340,7 +372,6 @@ export default {
     }
   }
 }
-
 .catalog-list {
   font-weight: 600;
   overflow: hidden;
@@ -355,6 +386,7 @@ export default {
     left: 9px;
     bottom: 0;
     width: 5px;
+    z-index: 10;
     background-color: #ebedef;
     opacity: .8;
   }
@@ -367,7 +399,6 @@ export default {
 
   ul, li {
     padding: 0;
-    margin: 0;
     list-style: none;
   }
 

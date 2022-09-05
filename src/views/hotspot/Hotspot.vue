@@ -250,7 +250,7 @@ export default {
   padding: 0 20px;
 }
 
-#write-dynamic >div{
+#write-dynamic > div {
   margin-bottom: 20px;
 }
 

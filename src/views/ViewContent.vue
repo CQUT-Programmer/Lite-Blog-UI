@@ -41,7 +41,7 @@ export default {
     const isHeader = ref(true)
     onMounted(() => {
       setStorage("2243771889", 'user_id', StorageType.SESSION)
-
+      setStorage({id: 1, name: 'albaZhang'}, 'user', StorageType.SESSION)
       window.addEventListener('scroll', windowScroll, true)
     })
 

@@ -15,11 +15,11 @@ export const parseTime = (
 
 
     if (typeof time === "object") {
-        if (time instanceof Date)
+     /*   if (time instanceof Date)
             date = dayjs(time)
         else if (time instanceof Dayjs)
             date = time
-        else
+        else*/
             date = time as Dayjs
     } else {
         if (typeof time === 'string') {
@@ -38,10 +38,10 @@ export const parseTime = (
     }
     const formatObj: { [key: string]: number } = {
         y: date.year(),
-        m: date.month() + 1,
+        M: date.month() + 1,
         d: date.date(),
         h: date.hour(),
-        i: date.minute(),
+        m: date.minute(),
         s: date.second(),
         a: date.day()
     }
@@ -55,7 +55,7 @@ export const parseTime = (
 }
 
 
-export const formatRangeTime = (time: any): string | null => {
+export const formatRangeTime = (time: any): string => {
 
     return dayjs(parseTime(time)).fromNow()
 }
