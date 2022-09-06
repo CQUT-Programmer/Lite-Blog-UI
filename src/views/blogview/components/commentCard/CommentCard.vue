@@ -2,7 +2,7 @@
   <div class="flex comment-content">
     <!--用户信息卡片，弹出用户的相关信息-->
     <user :user="comment.user">
-      <img :src="comment.user.avatar" :style="{'width': (50 - 5 * level) + 'px'}" alt="用户头像"
+      <img :src="comment.user.avatar" :style="{'width': (50 - 5 * level) + 'px', 'height':  (50 - 5 * level) + 'px'}" alt="用户头像"
            style="border-radius: 100%"/>
     </user>
     <div class="comment-content">

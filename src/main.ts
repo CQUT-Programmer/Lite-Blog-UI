@@ -2,13 +2,15 @@ import {createApp} from 'vue'
 import {createPinia} from "pinia";
 import App from './App.vue'
 import router from './router/router'
-import ElementPlus from 'element-plus'
-import './assets/css/common.css'
-import 'element-plus/dist/index.css'
-import * as ElIcons from "@element-plus/icons"
 
+// import ElementPlus from 'element-plus'
+// import 'element-plus/dist/index.css'
+// import * as ElIcons from "@element-plus/icons"
+
+import './assets/css/common.css'
 const app = createApp(App)
-for (const name in ElIcons) {
+/*for (const name in ElIcons) {
     app.component(name, (ElIcons as never)[name])
-}
-app.use(router).use(ElementPlus).use(createPinia()).mount('#app')
+}*/
+// app.use(ElementPlus)
+app.use(router).use(createPinia()).mount('#app')

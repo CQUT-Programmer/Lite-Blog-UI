@@ -9,9 +9,7 @@
       </div>
     </div>
     <div class="content">
-      <div>
         <router-view/>
-      </div>
     </div>
   </div>
 </template>
@@ -22,7 +20,6 @@ import synthetical from './synthetical/index.vue'
 import myRouterLink from '@/components/tools/MyRouterLink.vue'
 import {reactive, inject, onMounted, ref} from "vue";
 import {setStorage} from "@/utils/storage";
-import {StorageType} from "@/utils/constants";
 
 export default {
   name: "HomeView",

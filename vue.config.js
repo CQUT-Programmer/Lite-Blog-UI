@@ -5,13 +5,17 @@ function resolve(dir) {
     return path.join(__dirname, dir)
 }
 
+//实现element-plus的自动按需引入
+const AutoImport = require('unplugin-auto-import/webpack')
+const Components = require('unplugin-vue-components/webpack')
+const {ElementPlusResolver} = require('unplugin-vue-components/resolvers')
+
 const dayjs = require('dayjs')
 const time = dayjs().format('YYYY-M-D HH:mm:ss')
 process.env.VUE_APP_UPDATE_TIME = time
 
 module.exports = defineConfig({
     lintOnSave: false,
-
     devServer: {
         port: process.env.VUE_APP_PORT || 7090,
         /*    proxy: {
@@ -26,7 +30,6 @@ module.exports = defineConfig({
 
     },
     configureWebpack: {
-
         module: {
             rules: [
                 {
@@ -37,8 +40,15 @@ module.exports = defineConfig({
                     ]
                 }
             ]
-        }
-
+        },
+        plugins: [
+            AutoImport({
+                resolvers: [ElementPlusResolver()],
+            }),
+            Components({
+                resolvers: [ElementPlusResolver()],
+            })
+        ],
     },
     chainWebpack: config => {
         config.module

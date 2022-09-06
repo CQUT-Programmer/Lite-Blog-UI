@@ -1,6 +1,6 @@
 <template>
   <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
-             @click="toAssignUrl('liteblog/user/' + getStorage('user_id', StorageType.SESSION))"></el-avatar>
+             @click="toAssignUrl('liteblog/user/' + getStorage('user_id', StorageType.SESSION))" class="avatar"></el-avatar>
 </template>
 
 <script lang="ts">
@@ -23,5 +23,7 @@ export default {
 </script>
 
 <style scoped>
-
+.avatar {
+  margin-right: 5px;
+}
 </style>
