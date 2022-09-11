@@ -1,5 +1,8 @@
 import dayjs, {Dayjs} from "dayjs"
 
+//配置为中文格式
+require('dayjs/locale/zh-cn')
+dayjs.locale('zh-cn')
 import relativeTime from "dayjs/plugin/relativeTime"
 dayjs.extend(relativeTime)
 

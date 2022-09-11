@@ -57,7 +57,7 @@ export default {
 <style scoped lang="scss">
 
 
-@import "@/assets/css/root.scss";
+@import "@/assets/css/index.scss";
 
 .comment-icon {
   display: flex;

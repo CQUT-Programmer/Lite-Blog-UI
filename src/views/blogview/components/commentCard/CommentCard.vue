@@ -2,14 +2,28 @@
   <div class="flex comment-content">
     <!--用户信息卡片，弹出用户的相关信息-->
     <user :user="comment.user">
-      <img :src="comment.user.avatar" :style="{'width': (50 - 5 * level) + 'px', 'height':  (50 - 5 * level) + 'px'}" alt="用户头像"
+      <img :src="comment.user.avatar" :style="{'width': (50 - 5 * level) + 'px', 'height':  (50 - 5 * level) + 'px'}"
+           alt="用户头像"
            style="border-radius: 100%"/>
     </user>
     <div class="comment-content">
       <div class="flex-column comment-text">
         <!--TODO: 判断是不是博主自己的评论-->
         <div class="flex space-between">
-          <div v-html="commentUserHtml"></div>
+          <div v-if="level === 1 || comment?.replyText === comment.commentText">
+            <user :user="comment.user">
+              <a v-html="comment.user.id === blogUser.id ? comment.user.name + ' (作者)' : comment.user.name"></a>
+            </user>
+          </div>
+          <div v-else class="flex-center-h100">
+              <user :user="comment.user">
+                <a v-html="comment.user.id === blogUser.id ? comment.user.name + ' (作者)' : comment.user.name"></a>
+              </user>
+              <span style="margin-right: 10px; font-size: 14px">回复</span>
+              <user :user="comment.replyUser">
+                <a v-html="comment.replyUser.id === blogUser.id ? comment.replyUser.name + ' (作者)' : comment.replyUser.name"></a>
+              </user>
+          </div>
           <span v-html="formatRangeTime(comment.commentTime)"></span>
         </div>
         <div class="comment-text" v-html="comment.commentText"></div>
@@ -35,7 +49,7 @@
 </template>
 
 <script>
-import {toRefs, ref, computed} from "vue";
+import {toRefs, ref, computed, onMounted, createApp, h} from "vue";
 import {formatRangeTime} from "@/utils/format"
 import commentInput from '../CommentInput'
 import user from '../UserInfoWindow'
@@ -63,31 +77,10 @@ export default {
 
     const commentProp = toRefs(props)
     const commentInput = ref(false)
+    const blogUser = getStorage('user', StorageType.SESSION)
+    onMounted(() => {
 
-    const commentUserHtml = computed(() => {
-
-      const comment = commentProp.comment.value
-      const topicUser = commentProp.topicUser.value
-      const level = commentProp.level.value
-      const author = getStorage('user', StorageType.SESSION)
-      const commentAuthor = comment.user.id === author.id ? comment.user.name + ' (作者)' : comment.user.name
-      const addInfoSpan = (ifAuthor) => {
-        return `<span>${ifAuthor}</span>`
-      }
-      let html = ``
-      //如果是第一层,不存在谁回复谁, 如果回复的第一层评论不写回复谁
-      if (level === 1 || comment?.replyText === comment.commentText) {
-        html += addInfoSpan(commentAuthor)
-      } else {
-        const replyAuthor = comment.replyUser.id === author.id ? comment.replyUser.name + ' (作者)' : comment.replyUser.name
-        //如果是评论区里面的相互评论会存在谁回复谁
-        html += addInfoSpan(commentAuthor)
-        html += ` 回复 `
-        html += addInfoSpan(replyAuthor)
-      }
-      return html
     })
-
     const showCommentInput = (value) => {
       console.log(value)
       commentInput.value = !value
@@ -95,9 +88,9 @@ export default {
     return {
       ...commentProp,
       commentInput,
+      blogUser,
       formatRangeTime,
-      commentUserHtml,
-      showCommentInput
+      showCommentInput,
     }
   }
 }
@@ -108,7 +101,6 @@ export default {
 .comment-content {
   width: 100%;
   padding: 5px 0;
-
   > div {
     margin: 5px 0;
   }

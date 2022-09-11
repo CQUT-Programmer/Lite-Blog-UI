@@ -26,25 +26,25 @@
             <el-button :icon="Search"/>
           </template>
         </el-input>
-        <div>
-          <el-dropdown size="default"
-                       trigger="click"
-                       split-button
-                       type="primary"
-                       @click="toAssignUrl('blogEditor')"
-          >
-            创作者中心
-            <template #dropdown>
-              <el-dropdown-menu>
-                <el-dropdown-item icon="edit" @click="toAssignUrl('blogEditor')"><span>写文章</span></el-dropdown-item>
-                <el-dropdown-item icon="share" @click="toAssignUrl('blogEditor')"><span>发沸点</span></el-dropdown-item>
-                <el-dropdown-item icon="discount" @click="toAssignUrl('blogEditor')"><span>写代码</span></el-dropdown-item>
-                <el-dropdown-item icon="folderChecked" @click="toAssignUrl('blogEditor')"><span>草稿箱</span>
-                </el-dropdown-item>
-              </el-dropdown-menu>
-            </template>
-          </el-dropdown>
-        </div>
+
+        <el-dropdown size="default"
+                     trigger="click"
+                     split-button
+                     type="primary"
+                     @click="toAssignUrl('blogEditor')"
+        >
+          创作者中心
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item icon="edit" @click="toAssignUrl('blogEditor')"><span>写文章</span></el-dropdown-item>
+              <el-dropdown-item icon="share" @click="toAssignUrl('blogEditor')"><span>发沸点</span></el-dropdown-item>
+              <el-dropdown-item icon="discount" @click="toAssignUrl('blogEditor')"><span>写代码</span></el-dropdown-item>
+              <el-dropdown-item icon="folderChecked" @click="toAssignUrl('blogEditor')"><span>草稿箱</span>
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+
         <div>
           <img src="../../assets/image/numberIcon.png" alt="会员" id="memberIcon">
           <span> 会员 </span>
@@ -76,7 +76,7 @@
                   <span>赞过</span>
                 </li>
                 <li>
-                 {{ 0 }}
+                  {{ 0 }}
                   <span>收藏</span>
                 </li>
               </ul>
@@ -89,27 +89,39 @@
                   <span>我的主页</span>
                 </div>
                 <div>
-                  <el-icon><Present /></el-icon>
+                  <el-icon>
+                    <Present/>
+                  </el-icon>
                   <span>成长福利</span>
                 </div>
                 <div>
-                  <el-icon><Collection /></el-icon>
+                  <el-icon>
+                    <Collection/>
+                  </el-icon>
                   <span>会员中心</span>
                 </div>
                 <div>
-                  <el-icon><Reading /></el-icon>
+                  <el-icon>
+                    <Reading/>
+                  </el-icon>
                   <span>我的课程</span>
                 </div>
                 <div>
-                  <el-icon><DataLine /></el-icon>
+                  <el-icon>
+                    <DataLine/>
+                  </el-icon>
                   <span>我的优惠</span>
                 </div>
                 <div>
-                  <el-icon><WindPower /></el-icon>
+                  <el-icon>
+                    <WindPower/>
+                  </el-icon>
                   <span>我的报名</span>
                 </div>
                 <div>
-                  <el-icon><Place /></el-icon>
+                  <el-icon>
+                    <Place/>
+                  </el-icon>
                   <span>我的足迹</span>
                 </div>
 
@@ -135,6 +147,7 @@ import {ref, inject} from "vue";
 import Avatar from '../avatar/Avatar.vue'
 import {Search, CaretBottom, CaretTop, Bell} from "@element-plus/icons";
 import myRouterLink from '@/components/tools/MyRouterLink.vue'
+
 export default {
   name: "Navigation",
   components: {
@@ -243,8 +256,35 @@ export default {
 }
 </style>
 
+<style>
+
+.el-button-group > .el-button:not(:last-child) {
+  margin-right: -1px;
+}
+
+.el-button-group > .el-button:first-child {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.el-button-group > .el-button:last-child {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.el-button-group > .el-button {
+  float: left;
+  position: relative;
+}
+
+.el-button + .el-button {
+  margin: 0;
+}
+</style>
+
 <style lang="scss">
-@import "../../assets/css/root";
+@import "@/assets/css/index.scss";
+
 .blog-title {
   justify-content: center;
 
@@ -254,50 +294,63 @@ export default {
     width: 80%;
   }
 }
+
 .nav-person-info {
   @include font-size(16);
   color: #252933;
   width: 250px;
+
   el-icon {
     @include font-size(20);
   }
+
   .lowlight {
     color: #8a919f;
   }
+
   .font-large {
     @include font-size(18);
   }
+
   .font-small {
     @include font-size();
   }
+
   ul {
     padding-top: 10px;
+
     li {
       display: flex;
       flex-direction: column;
       align-items: center;
+
       span {
         @extend .lowlight;
         @extend .font-small
       }
     }
   }
+
   .info-padding {
     padding-left: 5px;
     padding-bottom: 5px;
   }
+
   #info-content {
     @extend .flex;
     @extend .space-between;
     @extend .align-center;
     flex-wrap: wrap;
-    >div {
+
+    > div {
       padding: 10px;
+
       &:hover {
         background-color: #f7f8fa;
         border-radius: 4px;
       }
     }
+
     span {
       padding: 5px;
     }

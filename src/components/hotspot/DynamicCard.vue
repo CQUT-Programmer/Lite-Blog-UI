@@ -43,7 +43,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "src/assets/css/root";
+@import "@/assets/css/index.scss";
 .dynamic-card {
   margin-bottom: 10px;
   font-size: 15px;

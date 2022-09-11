@@ -165,7 +165,8 @@ export default {
 
       const article = domRefs.article
       let titleLists = Array.prototype.slice.call((article as unknown as Element).getElementsByClassName('toc-title'))
-      titleLists.forEach(item => {
+      titleLists.forEach((item) => {
+        debugger
         scrollModule.listHeight.push(item.offsetTop)
       })
       scrollModule.listHeight.push(2 * scrollModule.listHeight[scrollModule.listHeight.length - 1])
@@ -189,7 +190,7 @@ export default {
     //监听页面滚动事件
     const handleScroll = () => {
       const scrollY = window.scrollY - clientHeight.value
-
+      console.log(scrollY)
       //通过offsetTop 属性,循环匹配当前活跃的标题属于哪儿
       for (let i = 0; i < scrollModule.listHeight.length - 1; i++) {
         let h1 = scrollModule.listHeight[i]
@@ -246,8 +247,7 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-
-@import "@/assets/css/root.scss";
+@import "@/assets/css/index.scss";
 
 .blog-content-view {
   text-align: left;

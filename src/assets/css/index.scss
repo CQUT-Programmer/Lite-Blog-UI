@@ -1,3 +1,30 @@
+* {
+  list-style: none;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: rgb(244, 245, 245);
+}
+
+img {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: #252933;
+  cursor: pointer;
+}
+
+a:hover {
+  color: cornflowerblue;
+}
+
 @mixin font-size($size: 14, $format: 'px') {
   font-size: #{$size} + #{$format}
 }
@@ -12,20 +39,27 @@
 }
 
 .space-between {
+  @extend .flex;
   justify-content: space-between;
 }
+
 .flex-end {
+  @extend .flex;
   justify-content: flex-end;
 }
 
 .align-center {
+  @extend .flex;
   align-items: center;
 }
 
 .space-around {
+  @extend .flex;
   justify-content: space-around;
 }
+
 .align-stretch {
+  @extend .flex;
   align-items: stretch;
 }
 
@@ -38,8 +72,7 @@
 }
 
 .flex-center-h100 {
-  display: flex;
-  align-items: center;
+  @extend .align-center;
   height: 100%;
 }
 
