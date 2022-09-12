@@ -25,8 +25,8 @@
 import navigation from "@/components/views/Navigation.vue"
 import {computed, onMounted, ref} from "vue";
 import {setStorage} from "@/utils/storage";
-import {StorageType} from "@/utils/constants";
-import {useStore} from "@/store";
+import {StorageType} from "@/constant/settings";
+import useStore from "@/store/modules/test/piniaTest";
 import {storeToRefs} from "pinia";
 
 export default {

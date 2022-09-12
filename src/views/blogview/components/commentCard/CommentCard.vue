@@ -54,7 +54,7 @@ import {formatRangeTime} from "@/utils/format"
 import commentInput from '../CommentInput'
 import user from '../UserInfoWindow'
 import {getStorage} from "@/utils/storage";
-import {StorageType} from "@/utils/constants";
+import {StorageType} from "@/constant/settings";
 
 export default {
   name: "CommentCard",

@@ -1,6 +1,9 @@
 import cookie from "js-cookie";
-import {TOKEN_KEY, TOKEN_STORAGE, StorageType} from './constants'
+import {TOKEN_KEY, TOKEN_STORAGE} from './constants'
+import {StorageType} from '@/constant/settings'
+import keys from "@/constant/key";
 
+// TODO 采用sha1加密
 export function getStorage(storage_key: string, storage_type = StorageType.LOCAL) {
     let token
     switch (storage_type) {
@@ -20,7 +23,7 @@ export function getStorage(storage_key: string, storage_type = StorageType.LOCAL
     return token
 }
 
-export function setStorage(storage: any, storage_key: any, storage_type  = StorageType.LOCAL) {
+export function setStorage(storage: any, storage_key: any, storage_type = StorageType.LOCAL) {
 
     switch (storage_type) {
         case StorageType.COOKIE :
@@ -54,14 +57,15 @@ export function clearStorage(storage_key: string, storage_type = StorageType.LOC
     }
 }
 
-export function getToken() {
-    return getStorage(TOKEN_KEY, TOKEN_STORAGE)
+export function getToken(token_type = TOKEN_KEY) {
+    return getStorage(token_type, TOKEN_STORAGE)
 }
 
-export function setToken(token: any) {
-    setStorage(token, TOKEN_KEY, TOKEN_STORAGE)
+export function setToken(token: any, token_type = TOKEN_KEY) {
+    setStorage(token, token_type, TOKEN_STORAGE)
 }
 
 export function clearToken() {
-    clearStorage(TOKEN_KEY, TOKEN_STORAGE)
+    clearStorage(keys.tokenAccessKey, TOKEN_STORAGE)
+    clearStorage(keys.tokenRefreshKey, TOKEN_STORAGE)
 }

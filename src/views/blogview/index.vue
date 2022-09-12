@@ -110,7 +110,7 @@ import {storeToRefs} from 'pinia'
 import {onMounted, computed, ref, reactive, watch, toRefs, nextTick, inject} from "vue";
 import {marked} from "marked";
 import "../../../node_modules/github-markdown-css/github-markdown.css";
-import {useStore} from "@/store";
+import useStore from "@/store/modules/test/piniaTest";
 import {getStorage} from "@/utils/storage";
 import {directoryAnchor, toToc} from "@/views/blogview/directoryAnchor";
 import avatar from '@/components/avatar/Avatar.vue'

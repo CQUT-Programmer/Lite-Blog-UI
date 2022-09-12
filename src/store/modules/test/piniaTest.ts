@@ -1,11 +1,10 @@
 import {defineStore} from "pinia";
-import {BlogContent} from "@/utils/constants";
+import {BlogContent, Comment} from "@/store/types";
 import dayjs from "dayjs";
-import {DateFormat} from "@/utils/constants";
+import {DateFormat} from "@/constant/settings";
 import {getStorage} from "@/utils/storage";
 
-export const useStore = defineStore({
-    id: 'piniaTest',
+const useStore = defineStore('piniaTest',{
 
     state: () => {
 
@@ -27,17 +26,15 @@ export const useStore = defineStore({
             commentNumber: 184867,
         }
 
+
         const userNameHeader = '用户巴拉巴拉'
         let number = 0
-
         const clientHeight = document.documentElement.clientHeight - 1
-
-
         /**
          * commentText: '评论的内容,图片文字都可',
          * replyText: '具体回复的是哪条内容，即别人的评论，图片文字都可'
          */
-        const comment: any = [
+        const comment: Array<Comment> = [
             {
                 user: {
                     avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
@@ -225,3 +222,5 @@ export const useStore = defineStore({
     actions: {},
 
 })
+
+export default useStore;

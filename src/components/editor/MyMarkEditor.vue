@@ -18,7 +18,7 @@ import 'md-editor-v3/lib/style.css';
 import {Message} from "@/utils/message";
 import {setStorage} from "@/utils/storage";
 import {defineComponent, PropType, reactive, toRefs, ref} from "vue";
-import {ContentType} from '@/utils/constants'
+import {ContentType} from '@/constant/headers'
 import axios from "axios";
 
 

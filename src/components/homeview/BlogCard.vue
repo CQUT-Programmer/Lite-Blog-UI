@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts">
-import {useStore} from "@/store";
+import useStore from "@/store/modules/test/piniaTest";
 import {storeToRefs} from "pinia";
 import {inject, ref, h} from "vue";
 import {ElDivider} from 'element-plus'

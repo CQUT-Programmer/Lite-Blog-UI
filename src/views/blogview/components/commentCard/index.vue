@@ -18,7 +18,7 @@
 
 import commentCard from './CommentCard'
 import {toRefs} from "vue";
-import {useStore} from "@/store";
+import useStore from "@/store/modules/test/piniaTest";
 import {storeToRefs} from "pinia";
 
 export default {
