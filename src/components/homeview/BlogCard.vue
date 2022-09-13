@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts">
-import useStore from "@/store/modules/test/piniaTest";
+import testStore from "@/store/modules/test/piniaTest";
 import {storeToRefs} from "pinia";
 import {inject, ref, h} from "vue";
 import {ElDivider} from 'element-plus'
@@ -43,7 +43,7 @@ export default {
     const spacerSize = ref(1)
     const spacer = h(ElDivider, {direction: 'vertical'})
     const toAssignUrl: any = inject("toAssignUrl")
-    const store = useStore()
+    const store = testStore()
 
     const mouseOver = ref(false)
     const {blogContent} = storeToRefs(store)

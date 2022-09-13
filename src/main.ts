@@ -10,5 +10,4 @@ const app = createApp(App)
 for (const name in ElIcons) {
     app.component(name, (ElIcons as never)[name])
 }
-app.use(http)
 app.use(router).use(pinia).mount('#app')

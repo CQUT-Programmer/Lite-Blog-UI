@@ -1,20 +1,16 @@
-import axios, {AxiosResponse} from "axios";
+import axios, {AxiosRequestConfig} from "axios";
 import qs from 'qs'
 import {getApiBaseUrl} from "./index";
-import {TIME_OUT, CONTENT_TYPE, TOKEN_KEY, SUCCESS_CODE} from "@/utils/constants";
+import {TIME_OUT, CONTENT_TYPE, TOKEN_KEY, SUCCESS_CODE, TOKEN_REFRESH_KEY} from "@/utils/constants";
 import {ContentType} from "@/constant/headers"
-import useUserStore from "@/store/modules/user";
-import pinia from "@/store/pinia";
 import {getToken} from "@/utils/storage";
 import keys from '@/constant/key'
 import {Message} from './message'
-
-const userStore = useUserStore(pinia)
 import router from "@/router/router";
 
 const baseUrl = getApiBaseUrl()
 
-const codeHandle = (code, message) => {
+const codeHandle = (code: number, message: string) => {
     switch (code) {
         case 4001:
             Message.warn(message)
@@ -52,15 +48,21 @@ const service = axios.create({
  * @param {*}
  * @return {*}
  */
-service.interceptors.request.use(config => {
-    const accessToken = userStore.token.accessToken || getToken()
-    if (accessToken) {
-        config.headers[TOKEN_KEY] = accessToken
-    }
-    const refreshToken = userStore.token.refreshToken || getToken(keys.tokenRefreshKey)
+service.interceptors.request.use((config) => {
+    !config.headers && (config.headers = {});
+    //登录不需要携带token
+    if (config.url?.indexOf("/login") == -1) {
+        // const accessToken = userStore.token.accessToken || getToken()
+        const accessToken = getToken()
+        if (accessToken) {
+            config.headers[TOKEN_KEY] = accessToken
+        }
+        // const refreshToken = userStore.token.refreshToken || getToken(keys.tokenRefreshKey)
+        const refreshToken = getToken(keys.tokenRefreshKey)
 
-    if (refreshToken) {
-        config.headers[keys.tokenRefreshKey] = refreshToken
+        if (refreshToken) {
+            config.headers[TOKEN_REFRESH_KEY] = refreshToken
+        }
     }
     if (config.data) {
         //如果是form表单类型的数据，利用qs进行格式化
@@ -82,15 +84,16 @@ service.interceptors.response.use(response => {
     switch (response.headers['Content-Type']) {
         case ContentType.TEXT:
         case ContentType.STREAM:
-            return response.data || null
+            return response || null
         default:
             if (!SUCCESS_CODE.includes(response.data.code)) {
                 codeHandle(response.data.code, response.data.message)
                 return null
             }
-            return response.data || null
+            return response || null
     }
 }, error => {
+
     if (error && error.response) {
         switch (error.response.status) {
             case 400:

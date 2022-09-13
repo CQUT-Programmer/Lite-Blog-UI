@@ -19,7 +19,7 @@ import navigation from '../../components/views/Navigation.vue'
 import synthetical from './synthetical/index.vue'
 import myRouterLink from '@/components/tools/MyRouterLink.vue'
 import {reactive, inject, onMounted, ref} from "vue";
-import {setStorage} from "@/utils/storage";
+import storage from "@/utils/storage";
 
 export default {
   name: "HomeView",

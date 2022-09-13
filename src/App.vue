@@ -6,19 +6,23 @@
 </template>
 
 <script lang="ts">
-import {nextTick, ref, provide, } from "vue";
+import {nextTick, ref, provide, onMounted} from "vue";
 import {useRouter} from "vue-router";
 import {Howl, Howler} from 'howler'
+import useUserStore from "@/store/modules/user";
+import {Message} from "@/utils/message";
+
 export default {
   name: 'App',
   setup() {
-    let isRouterActive = ref(true)
+    let isRouterActive = ref(false)
     const router = useRouter()
     const toAssignUrl = (url: string) => {
       router.push({
         path: '/' + url
       })
     }
+    const userStore = useUserStore()
     const reload = async () => {
       isRouterActive.value = false
       await nextTick()
@@ -28,13 +32,21 @@ export default {
     const sound = new Howl({
       src: require('@/assets/mp3/sound.mp3')
     })
- /*    onMounted(() => {
-      sound.stop()
-      nextTick(() => {
-        sound.play()
-      })
-      Howler.volume(1)
-    })*/
+    onMounted(() => {
+      isRouterActive.value = true
+
+         userStore.login({mail: '2633565580@qq.com', password: 'z123456'}).then(() => {
+           isRouterActive.value = true
+         }).catch((error) => {
+           Message.error(error.message)
+         })
+      /*sound.stop()
+            nextTick(() => {
+              sound.play()
+            })
+            Howler.volume(1)*/
+    })
+
 
     provide('toAssignUrl', toAssignUrl)
     return {

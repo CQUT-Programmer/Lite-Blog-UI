@@ -71,14 +71,14 @@
 <script lang="ts">
 import {inject, onMounted, reactive} from "vue";
 import {StorageType} from '@/constant/settings'
-import {getStorage} from "@/utils/storage";
+import storage from "@/utils/storage";
 export default {
   name: "User",
   setup() {
 
     const toAssignUrl: any = inject("toAssignUrl")
 
-    const userId =  getStorage('user_id', StorageType.SESSION)
+    const userId =  storage.getStorage('user_id', StorageType.SESSION)
     const navChange = reactive({
       activeIndex: '1',
       nav: [

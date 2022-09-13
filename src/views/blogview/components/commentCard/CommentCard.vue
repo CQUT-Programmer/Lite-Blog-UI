@@ -53,7 +53,7 @@ import {toRefs, ref, computed, onMounted, createApp, h} from "vue";
 import {formatRangeTime} from "@/utils/format"
 import commentInput from '../CommentInput'
 import user from '../UserInfoWindow'
-import {getStorage} from "@/utils/storage";
+import storage from "@/utils/storage";
 import {StorageType} from "@/constant/settings";
 
 export default {
@@ -77,7 +77,7 @@ export default {
 
     const commentProp = toRefs(props)
     const commentInput = ref(false)
-    const blogUser = getStorage('user', StorageType.SESSION)
+    const blogUser = storage.getStorage('user', StorageType.SESSION)
     onMounted(() => {
 
     })

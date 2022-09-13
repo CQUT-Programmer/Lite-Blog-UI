@@ -24,9 +24,9 @@
 <script lang="ts">
 import navigation from "@/components/views/Navigation.vue"
 import {computed, onMounted, ref} from "vue";
-import {setStorage} from "@/utils/storage";
+import storage from "@/utils/storage";
 import {StorageType} from "@/constant/settings";
-import useStore from "@/store/modules/test/piniaTest";
+import testStore from "@/store/modules/test/piniaTest";
 import {storeToRefs} from "pinia";
 
 export default {
@@ -35,13 +35,13 @@ export default {
     navigation
   },
   setup() {
-    const store = useStore()
+    const store = testStore()
 
     const {clientHeight} = storeToRefs(store)
     const isHeader = ref(true)
     onMounted(() => {
-      setStorage("2243771889", 'user_id', StorageType.SESSION)
-      setStorage({id: 1, name: 'albaZhang'}, 'user', StorageType.SESSION)
+      storage.setStorage("2243771889", 'user_id', StorageType.SESSION)
+      storage.setStorage({id: 1, name: 'albaZhang'}, 'user', StorageType.SESSION)
       window.addEventListener('scroll', windowScroll, true)
     })
 

@@ -1,15 +1,16 @@
 import {defineStore} from "pinia";
 import {UserState} from "../../types"
 
-import {getStorage, getToken} from "@/utils/storage"
-import {DEFAULT_AVATAR} from "@/utils/constants";
-import keys from "@/constant/key";
+import storage, {getToken, setToken} from "@/utils/storage"
+import {DEFAULT_AVATAR, TOKEN_REFRESH_KEY} from "@/utils/constants";
+import Keys from "@/constant/key";
 
 import {loginApi} from "@/api/login";
+import {StorageType} from "@/constant/settings";
+import {RootObject} from "@/model/rootObject"
 
-const USER_INFO_KEY = 'lite-blog-user-info'
 const userInfo: UserState = JSON.parse(
-    getStorage(USER_INFO_KEY) || "{}"
+    storage.getStorage(Keys.userInfoKey) || "{}"
 )
 const useUserStore = defineStore("user", {
 
@@ -23,8 +24,8 @@ const useUserStore = defineStore("user", {
 
         const token = {
             user_id: '',
-            accessToken: getToken() || "",
-            refreshToken: getToken(keys.tokenRefreshKey) || "",
+            accessToken: userInfo.accessToken || getToken() || "",
+            refreshToken: userInfo.refreshToken || getToken(TOKEN_REFRESH_KEY) || "",
             expired_at: '',
             updated_at: ''
         }
@@ -36,8 +37,17 @@ const useUserStore = defineStore("user", {
     getters: {},
 
     actions: {
-        async login(params) {
-            return loginApi(params);
+        async login(params: { mail: string, password: string }){
+            return await loginApi(params).then(async (res) => {
+                if (res.data.code == 200 && res.data.data) {
+                    storage.setStorage(res.data, Keys.userInfoKey, StorageType.LOCAL)
+                    setToken(res.data.access.token)
+                    setToken(res.data.refresh.token, TOKEN_REFRESH_KEY)
+                }
+            }).catch((err) => {
+                console.log(err)
+            })
+
         }
     }
 })

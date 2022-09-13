@@ -3,7 +3,8 @@ import {Dayjs} from "dayjs";
 //vo用户
 export interface UserState {
     userId: number,
-    token: string,
+    accessToken: string,
+    refreshToken: string
     userName: string,
     avatar: string
 }

@@ -2,9 +2,9 @@ import {defineStore} from "pinia";
 import {BlogContent, Comment} from "@/store/types";
 import dayjs from "dayjs";
 import {DateFormat} from "@/constant/settings";
-import {getStorage} from "@/utils/storage";
+import storage from "@/utils/storage";
 
-const useStore = defineStore('piniaTest',{
+const testStore = defineStore('piniaTest',{
 
     state: () => {
 
@@ -21,7 +21,7 @@ const useStore = defineStore('piniaTest',{
             label: [{name: '算法'}, {name: '前端'}, {name: 'java'}],
             posterImg: require('@/assets/image/blogLogo.png'),
             describe: '博客测试描述',
-            content: getStorage('blog_text'),
+            content: storage.getStorage("blog_text") ?? '',
             awesomeNumber: 1234,
             commentNumber: 184867,
         }
@@ -223,4 +223,4 @@ const useStore = defineStore('piniaTest',{
 
 })
 
-export default useStore;
+export default testStore;

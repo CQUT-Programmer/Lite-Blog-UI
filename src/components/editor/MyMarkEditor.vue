@@ -16,10 +16,11 @@
 import MdEditor from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
 import {Message} from "@/utils/message";
-import {setStorage} from "@/utils/storage";
-import {defineComponent, PropType, reactive, toRefs, ref} from "vue";
+import storage from "@/utils/storage";
+import {defineComponent, PropType, reactive, ref, toRefs} from "vue";
 import {ContentType} from '@/constant/headers'
 import axios from "axios";
+import {StorageType} from "@/constant/settings";
 
 
 export type Theme = 'dark' | 'light';
@@ -45,7 +46,7 @@ export default defineComponent({
     const htmlBlog = ref('')
 
     const onSave = (text: string) => {
-      setStorage(text, blog_storage_key)
+      storage.setStorage(text, blog_storage_key)
       Message.success("保存成功")
     }
 

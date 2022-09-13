@@ -110,8 +110,8 @@ import {storeToRefs} from 'pinia'
 import {onMounted, computed, ref, reactive, watch, toRefs, nextTick, inject} from "vue";
 import {marked} from "marked";
 import "../../../node_modules/github-markdown-css/github-markdown.css";
-import useStore from "@/store/modules/test/piniaTest";
-import {getStorage} from "@/utils/storage";
+import testStore from "@/store/modules/test/piniaTest";
+import storage from "@/utils/storage";
 import {directoryAnchor, toToc} from "@/views/blogview/directoryAnchor";
 import avatar from '@/components/avatar/Avatar.vue'
 import commentInput from './components/CommentInput.vue'
@@ -126,7 +126,7 @@ export default {
   },
   setup() {
 
-    const store = useStore()
+    const store = testStore()
     const domRefs: any = reactive({
       linkLists: '',
       article: ''
@@ -146,8 +146,10 @@ export default {
       height = height > 0 ? height : 64
       return height + 'vh'
     })
+
     //格式化博客内容
-    const blogTransform: { data: any, toc: string[] } = reactive(directoryAnchor(marked(blogContent.value.content)))
+    const markedContent = marked(blogContent.value.content)
+    const blogTransform: { data: any, toc: string[] } = reactive(directoryAnchor(markedContent))
 
     const blogText = computed(() => {
       return blogTransform.data
@@ -166,7 +168,6 @@ export default {
       const article = domRefs.article
       let titleLists = Array.prototype.slice.call((article as unknown as Element).getElementsByClassName('toc-title'))
       titleLists.forEach((item) => {
-        debugger
         scrollModule.listHeight.push(item.offsetTop)
       })
       scrollModule.listHeight.push(2 * scrollModule.listHeight[scrollModule.listHeight.length - 1])
@@ -234,7 +235,7 @@ export default {
 
       ...toRefs(domRefs),
       blogContent,
-      getStorage,
+      storage,
       comment,
       blogText,
       blogTextDirectory,
