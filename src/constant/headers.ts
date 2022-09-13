@@ -6,9 +6,22 @@ export enum ContentType {
     STREAM = 'application/octet-stream;charset=UTF-8'
 }
 
-export enum Device{
+export enum Device {
     IOS = 'iOS',
     ANDROID = 'Android',
     WINDOWS = 'Windows',
-    PC='PC'
+    PC = 'PC'
+}
+
+export enum Method {
+    GET = 'GET',
+    DELETE = 'DELETE',
+    HEAD = 'HEAD',
+    OPTIONS = 'OPTIONS',
+    POST = 'POST',
+    PUT = 'PUT',
+    PATCH = 'PATCH',
+    PURGE = 'PURGE',
+    LINK = 'LINK',
+    UNLINK = 'UNLINK'
 }

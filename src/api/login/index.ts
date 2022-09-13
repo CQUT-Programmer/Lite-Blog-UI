@@ -1,10 +1,9 @@
 import service from "@/utils/service";
-import {AxiosPromise} from "axios";
+import {RootObject} from "@/model/rootObject";
 
-export function loginApi(params: {mail: string, password: string}){
-    return service({
-        url: '/auth/login',
-        method: 'get',
+export function loginApi(params: { mail: string, password: string }) {
+    return service.get<RootObject<any>>('/auth/login', {
         params: params,
+        needToken: false
     })
 }

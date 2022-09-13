@@ -3,7 +3,6 @@ import {TOKEN_KEY, TOKEN_STORAGE} from './constants'
 import {StorageType} from '@/constant/settings'
 import keys from "@/constant/key";
 import Crypto from "@/utils/crypto";
-import {enc} from "crypto-ts";
 
 interface StorageInterface {
     getStorage(storage_key: string, storage_type: StorageType): string | null

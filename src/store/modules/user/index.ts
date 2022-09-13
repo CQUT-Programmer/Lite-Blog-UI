@@ -7,7 +7,6 @@ import Keys from "@/constant/key";
 
 import {loginApi} from "@/api/login";
 import {StorageType} from "@/constant/settings";
-import {RootObject} from "@/model/rootObject"
 
 const userInfo: UserState = JSON.parse(
     storage.getStorage(Keys.userInfoKey) || "{}"
@@ -39,7 +38,7 @@ const useUserStore = defineStore("user", {
     actions: {
         async login(params: { mail: string, password: string }){
             return await loginApi(params).then(async (res) => {
-                if (res.data.code == 200 && res.data.data) {
+                if (res.code == 200 && res.data) {
                     storage.setStorage(res.data, Keys.userInfoKey, StorageType.LOCAL)
                     setToken(res.data.access.token)
                     setToken(res.data.refresh.token, TOKEN_REFRESH_KEY)

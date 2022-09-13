@@ -1,4 +1,4 @@
-export interface RootObject<T>{
+export interface RootObject<T> {
     code: number
     msg: string
     data: T

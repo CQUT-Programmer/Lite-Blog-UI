@@ -18,9 +18,7 @@ import 'md-editor-v3/lib/style.css';
 import {Message} from "@/utils/message";
 import storage from "@/utils/storage";
 import {defineComponent, PropType, reactive, ref, toRefs} from "vue";
-import {ContentType} from '@/constant/headers'
-import axios from "axios";
-import {StorageType} from "@/constant/settings";
+import {saveEditorApi} from "@/api/editor";
 
 
 export type Theme = 'dark' | 'light';
@@ -51,23 +49,16 @@ export default defineComponent({
     }
 
     const onHtmlChange = (text: string) => {
-      htmlBlog.value= text
+      htmlBlog.value = text
     }
 
-    // eslint-disable-next-line no-undef
     const loadImg = async (files: Array<File>, callback: (urls: string[]) => void) => {
       const res = await Promise.all(
           files.map((file) => {
             return new Promise((rev, rej) => {
-              // eslint-disable-next-line no-undef
               const form = new FormData();
               form.append('file', file)
-              axios.put('http://localhost:8088/api/cos/upload/public', form, {
-                headers: {
-                  'Content-Type': ContentType.UPLOAD,
-                  '5624d023ce7c5ce2081b64a1157c85dc773d3c9d': 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJhZjRlNDViOWRkN2Q0MTUyODg4NzBhZjNiNzgzNWNkNCIsInN1YiI6IntcImdlbmRlclwiOlwi55S3XCIsXCJpZFwiOjExLFwibG9naW5UaW1lXCI6XCIyMDIyLTA4LTI0IDE5OjQ3OjM1XCIsXCJtYWlsXCI6XCIxMjNAcXEuY29tXCIsXCJuaWNrTmFtZVwiOlwiYWxiYVpoYW5nXCIsXCJyb2xlSWRcIjowLFwidXVpZFwiOlwiMTIwM2Q5ZDEwODNlNDM0ZWI1MjRiY2I2Y2I1NmQxZjdcIn0iLCJpc3MiOiJmNDBkMjQ0YWZlYjFmZDdlMjQ1NWU5N2QwZGJhODYyNDU1NTkxYmRkIiwiaWF0IjoxNjYxMzQxNjU1LCJleHAiOjE2NjEzNDg4NTV9.KxiuBJVRdYB4MpWm60GlGON5kWvOXWZ6SJgAw9P6QT8'
-                }
-              })
+              saveEditorApi(form)
                   .then((res) => rev(res))
                   .catch((error) => rej(error))
             })

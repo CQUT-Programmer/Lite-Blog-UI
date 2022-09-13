@@ -1,4 +1,4 @@
-import axios, {AxiosRequestConfig} from "axios";
+import axios from "axios";
 import qs from 'qs'
 import {getApiBaseUrl} from "./index";
 import {TIME_OUT, CONTENT_TYPE, TOKEN_KEY, SUCCESS_CODE, TOKEN_REFRESH_KEY} from "@/utils/constants";
@@ -7,6 +7,7 @@ import {getToken} from "@/utils/storage";
 import keys from '@/constant/key'
 import {Message} from './message'
 import router from "@/router/router";
+import {Method} from "@/constant/headers";
 
 const baseUrl = getApiBaseUrl()
 
@@ -37,6 +38,7 @@ const codeHandle = (code: number, message: string) => {
 const service = axios.create({
     baseURL: baseUrl,
     timeout: TIME_OUT,
+    needToken: true,
     headers: {
         'Content-Type': CONTENT_TYPE
     }
@@ -50,8 +52,9 @@ const service = axios.create({
  */
 service.interceptors.request.use((config) => {
     !config.headers && (config.headers = {});
-    //登录不需要携带token
-    if (config.url?.indexOf("/login") == -1) {
+    debugger
+    //判断请求是否需要携带token，通过扩展的needToken来进行判断
+    if (config.needToken && config.method?.toLocaleUpperCase() !== Method.OPTIONS) {
         // const accessToken = userStore.token.accessToken || getToken()
         const accessToken = getToken()
         if (accessToken) {
@@ -84,13 +87,13 @@ service.interceptors.response.use(response => {
     switch (response.headers['Content-Type']) {
         case ContentType.TEXT:
         case ContentType.STREAM:
-            return response || null
+            return response.data || null
         default:
             if (!SUCCESS_CODE.includes(response.data.code)) {
                 codeHandle(response.data.code, response.data.message)
                 return null
             }
-            return response || null
+            return response.data || null
     }
 }, error => {
 

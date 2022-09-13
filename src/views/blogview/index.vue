@@ -191,7 +191,6 @@ export default {
     //监听页面滚动事件
     const handleScroll = () => {
       const scrollY = window.scrollY - clientHeight.value
-      console.log(scrollY)
       //通过offsetTop 属性,循环匹配当前活跃的标题属于哪儿
       for (let i = 0; i < scrollModule.listHeight.length - 1; i++) {
         let h1 = scrollModule.listHeight[i]
