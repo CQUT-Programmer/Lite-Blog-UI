@@ -1,18 +1,18 @@
-import {RouteRecordRaw} from 'vue-router'
+import {RouteRecordRaw} from "vue-router";
 import routerImport from "@/utils/router_import";
 
 //导入子路由配置
-const requireUsers = require.context("@/views/user", true, /index\.vue$/,)
+const requireUsers = require.context("@/views/user", true, /index\.vue$/,);
 
-const routers = routerImport(requireUsers, 'dynamic', 'user')
+const routers = routerImport(requireUsers, "dynamic", "user");
 
 const userRouter: RouteRecordRaw = {
-        path: 'user' + "/" + ":userId",
-        name: 'user',
-        component: () => import('@/views/user/User.vue'),
-        children: [
-            ...routers
-        ]
-    }
+    path: "user" + "/" + ":userId",
+    name: "user",
+    component: () => import("@/views/user/User.vue"),
+    children: [
+        ...routers
+    ]
+};
 
-export default userRouter
+export default userRouter;
