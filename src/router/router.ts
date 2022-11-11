@@ -22,7 +22,7 @@ const routes: Array<RouteRecordRaw> = [
         redirect: {name: "home"}
     },
     {
-        path: "/404",
+        path: "/:pathMatch(.*)*",
         name: "404",
         component: () => import("@/views/exception/404.vue")
     },
