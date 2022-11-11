@@ -1,8 +1,13 @@
 <template>
-  <div>
-    <img :src="exceptionImg" alt="错误页面">
-    <span>{{ exceptionMsg }}</span>
-    <el-button @click="back">回到首页</el-button>
+  <div class="exception-box">
+    <div class="img-box">
+      <img class="exception-img" :src="exceptionImg" alt="错误页面">
+      <span class="exception-msg">{{ exceptionMsg }}</span>
+    </div>
+
+    <div>
+      <el-button type="primary" @click="back">回到首页</el-button>
+    </div>
   </div>
 </template>
 
@@ -60,5 +65,26 @@ const back = (): void => {
 </script>
 
 <style scoped>
+.exception-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 200px 650px;
+}
 
+.exception-msg {
+
+}
+
+.img-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.exception-img {
+  width: 100%;
+  height: 350px;
+}
 </style>
